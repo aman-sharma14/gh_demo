@@ -1,0 +1,776 @@
+C# and Java    9
+    - offers more datatype like int32, int 16 etc
+        offers less, like int, long, double etc 
+    - Software by miscrosoft
+        software by Oracle (open source)
+    - More control on inheritance. Its in detail, and method can be called at any step of the chain (using virtual, override etc)
+        More straightforward, but offers less control
+    - Automation library gets installed, so its slower
+        only required libraries get installed, so faster
+    - Delegates added to simplify progress development
+        No Delegates
+    -  diff ways of writing an array -> jagged, mulit-dim
+        only standard arrays (no jagged)
+    - OS level control given in .NET or C# (like file system, registry etc)
+        more platform independent, thus avoids OS specific controls for portability
+    - tightly integrated with Windows
+        platform independent (runs anywhere with JVM)
+    - integrates tightly with other .NET langs like VB.NET (must have .NET compiler)
+        java-only environment
+
+
+Main method - 
+    entry point of C# console application or Windows application.
+    when application started, main method is first method to be invoked
+    Can only be one entry point i.e one main method in a C# program
+    If more than one class with main, must compile with /main compiler option (command) to specify which main method to use as entry.
+         eg 
+        TestClass {
+            static void Main(string[] args){
+                System.Console.WriteLine(args.length);
+            }
+
+        OR 
+        static void Main(){
+            System.Console.WriteLine("No args Main method");
+        }
+
+        OR 
+        static int Main(string[] args){
+            System.Console.WriteLine("returning exit code");
+            return 0;  // exit code
+        }
+    }
+
+    why Main is static - 
+        static methods are class level instances, so no need to create an instance to call the static method.
+        Main is static cause it has to run when program starts and is the entry point and runs without creating an instance.
+    String[] args - 
+        allows to pass values from terminal , to program, when it runs
+
+
+Inheritance - 
+    OOPS feature, where child class can use or extend features of parent class
+    virtual - means a method can be overridden, gives run time polymorphism (method overriding)
+        expects subclass to override it, else, works like a normal function
+    Override - 
+        used to override a virtual method
+        signature must match the base class method exactly
+        Ensures runtime binding (decided at runtime which version to call).
+    new - 
+        when used, chain will stop right there
+        as good as writing nothing in front of class, thus, its only a good practice
+        hides the base class method (inside this class only, thus when you make its object, you get this class's method and not parent's)
+        used when the child has method with same name as base class, but doesnt want to override
+    
+    CODE
+        virtual needs override,
+            if A (virtual) -> B (override) -> C (override)
+            and A a = new C();
+            op -> C's function
+            but, chain will start from A
+
+            so, if A (virtual) -> B (virtual) -> C (override)
+                and A a = new C();
+                op -> A's function
+                as, chain will start from A, and end there, as it didnt find override 
+        
+        if a parent class has new func(), child cannot override
+        Only use new, when we want to break chain
+
+        so when,
+        A obj = new D();
+            A is reference type, D is type
+            inheritance chain will start from A, and try to reach D via override
+            if override not found at any step, i.e new/virtual method comes in between, chain will stop 
+        subclass cannot have override , if its immediate parent does not have virtual
+        
+
+Constructor - 
+    special method which invokes automatically when object created.
+    Responsible for object initialization and memory allocation
+    dont have return type
+    can be overloaded
+    Name is as same as class name
+    compiler automatically creates default Constructor, if we dont
+    there exists, always atleast one Constructor in class, and class can have any number of constructors
+    eg - 
+        class Sample{
+            public Sample(){}
+        }
+
+    Types - 
+        Default (by compiler) (or parameterless)
+        Parameterized - 
+            eg . 
+            class Sample{
+                public Sample(int a1){}
+            }
+
+        Copy - 
+            Parameterized const which contains parameter of same class type.
+            Main purpose is to initialize new instance with the values of an existing instance
+            copies values from existing object
+            eg - 
+                public Student(Student s)
+                {
+                    this.Name = s.Name;
+                    this.Age = s.Age;
+                }
+
+        Static - 
+            invoked only once for any number of instances, i.e during creation of first instance or, first reference to a static member in class
+            used to initialize static fields of class and to write code that needs to be executed only once
+            will not have access modifier like private or public
+            only one static const allowed
+            wont accept any paramter, as its automatically called by CLR , thus cant be called manually
+            eg - 
+                static Sample(){
+                    // do something 
+                }
+
+        Private - 
+            Special instance constructor used in class, that contains static members only
+            If class has a private, and no public constructor, then other classes are not allowed to create instance of this class
+            Thus, neither its obj can be created, nor it can be inherited
+            Main purpose is to restrict class from being instantiated when it has every member as static
+            eg .
+                private Sample() 
+                {
+                    Console.WriteLine("private Constructor called"); // This will never be printed
+                    //can only be called within the class 
+                }
+
+                public static void func(string msg)
+                {
+                    Console.WriteLine("Static funation : " + msg);
+                }
+                can call func via objA.func() as its static
+    :this() - used to call another constructor in same class
+    see whatsapp example for code
+
+
+XML - 9
+    Extensible Markup language
+    text based format, can be read by any platform
+    it is lightweight
+    conversion of XML to database and vice versa is easily possible
+    works well for data exchange between systems
+    .NET provides strong support for reading, writing and manipulating XML using XmlDocument, XmlReader etc 
+    XML naturally supports nested data using parent-child relationship
+    can convert objects to xml and store or transmit them
+    can be used in REST API, thus in web services
+    
+    xml products CODE 
+
+
+LDAP -
+    lightweight directory access protocol
+    protocol for accessing and managing directory services (specialized database optimized for reading/searching)
+    it is databse optimized for reading, searching or browsing , not designed for frequent updates
+    stores user credentials, organizational info, resource information in a Hierarchical structured (tree-like) format
+    provides authentication, access control etc
+    Eg - 
+        used in router and switches, to validate admin access
+    LDAP is not a general database. It’s a protocol to access a read-optimized directory that stores users, groups, and resources.
+
+
+Components of .NET - 
+    DIAGRAM
+    CLS -
+        Common Language Specification
+        .NET supports 63 Languages, each has its own syntax, one lang doesnt support syntax of other,
+            this means, .NET has common syntax feature which are supported by all 63 languages.
+        specifies set of rules, that need to be athered by all language compilers, targeting CLR 
+        It is subset of CTS 
+    CTS - 
+        Common Type System
+        each language has its own data type system, one lang does not support datatype of another,
+            .NET has common datatype features supported by all languages
+        specifies data types that can be used in a language
+        supports Value types(actual value, direct data) and reference types (pointers, reference to value's memory address)
+    CLR - 
+        Common Language Runtime
+        provides environment to run all all .NET programs
+        code running under CLR is called managed code.
+        memory management - 
+            cache is fastest memory
+            CLR moves most used things to cache , so accessing them is faster
+            for loop example with DIAGRAM
+            thus, programmer dont need to worry about managing memory, as CLR provides memory and thread mngmt
+        CLR allocates and deallocates memory based on scope (completed or running)
+        language compilers convert code to MSIL, this will be converted to native code by CLR using JIT (DIAGRAM)
+        CTS and CSL come under CLR
+
+    Task Parallel Library - 
+        decides which variables to seperate and perform task parallely to get quicker solutions
+        helps divide code such that things can be done parallely
+        things can be done parallely only when there is no dependency
+
+    AJAX - 
+        miscrosoft ajax (not web one)
+        built in lib to make asynchronous calls without reload
+        DIAGRAM
+        form submission
+            if one input fails validation, entire data gets rejected
+            to validate data before submission, AJAX is used. Check data validation without reload, asynchronously
+            can use any technique, web or miscrosoft
+    FCL - 
+        Framework Class Library or base class library
+        common for all types of applications
+            i.e accessing library classes and methods in VB.NET will be same in C# and other languages
+        huge collection of prebuilt classes and interaces (file io, collections, networking, xml)
+        
+        WCF - 
+            Windows Communication Foundation
+            can send data as asynchronous messages (XML or binary data) from one service endpoint to another
+            exchange data in real time
+            offers maangeable way of creating web services with enhanced security
+        WPF - 
+            Windows presentation Foundation
+            UI library with all animations , presentations and graphical design stuff
+        WWF - 
+            Windows Workflow Foundation
+            gives diagramatic representation and programming of your project
+        windows CardSpace (infocard)- 
+            storing personal digital transactions securely
+            Helps users select identity credentials (like a digital wallet) for transactions.
+        
+    Entity Framework - 
+        ORM - object relational mapping
+            library which passes records to database
+    REST - 
+        add, edit, delete information via API token
+
+    ADO.NET - low level data access tech
+        handles both relational and non relational database
+    ASP.NET - 
+        developing web applications and web APIs.
+        Supports web controls, Razor pages
+        offers SSR
+    PLINQ - 
+        linq - brought functional prog ideas into object oriented environment
+        Parallel LINQ adds intuitive parallel execution capabilities onto linq
+    LINQ-to-XML - 
+        data extraction possible from DB, objects etc using LINQ
+        allows extraction from any machine
+        
+
+LINQ architecture - 
+    DIAGRAM
+    makes concept of querying, a first class programming concept in c#
+    data to be queried can be XML (linq to XML), databases (linq enabled ADO.NET : to datasets, to sql, to entities), and objects (linq to objects)
+    highly extensible i.e  allows building custom linq enabled data providers (eg linq to amazon, to LDAP)
+
+    Advantages of LINQ - 
+        offers object based , language integrated way of querying data, irrespective of the data source
+        compile time syntax checking
+        allows querying collections like arrays, lists, collections, databases etc, in language of your application
+            like vb or c#, in same way as you would query a database with SQL 
+        strongly typed
+        queries can be reused
+
+    sytnax -
+        linq provides language integrated syntax (called query syntax), similar to relational query langs like SQL.
+            it provides shorthand for writing queries using LINQ query operators (from ... where.. select)
+            its easier and more readable
+            provides full compile time checking support
+        in background, when c# encounters query syntax, it transforms it into method invocation code that uses Lambda expressions and extension methods
+        eg - 
+            query syntax : 
+                var result = from s in students
+                    where s.Age > 18
+                    select s;
+                here, each query must end with select or group by 
+            method syntax (lambda) :
+                var result = students.Where(s => s.Age > 18).Select(s => s);
+
+    LINQ to ADO.NET - 
+        deals with data from external sources, basically any source that ADO.NET can connect to (to datasets, to sql, to entities)
+        any class that implements IEnumerable<T> or IQueryable<T> can be queried
+        eg . 
+            // LINQ to DataSet
+            var results = from row in myDataTable.AsEnumerable()
+                where row.Field<int>("Age") > 18
+                select row;
+
+
+String - 
+    immutable sequence of characters in C#
+    Any modification creates a new string object.
+
+    methods - 
+        ToLower
+        Replace('', '')   // only char, case sensitive
+        Equals()    // compares by value, not ever by reference
+        CompareTo(), 1 if letters of og string are ahead than compare string (in terms of alphabetical or numerical)
+        Contains // case sensitive
+        EndsWith  // case sensitive
+        IndexOf // case sensitive, str and char
+        Insert(index, "")   // no char
+        Remove(from, how_many)   // removes from i onwards , how_many number of chars
+        Split()
+        string.Join(',', s1) 
+
+
+StringBuilder - 
+    mutable string class in System.Text.
+    Modifies the string in place (no new object).
+    Ideal for frequent modifications
+
+    using System.Text
+    methods - 
+        Equals()
+        CompareTo(), 1 if letters of og string are ahead than compare string (in terms of alphabetical or numerical)
+        Append()
+        Replace('', '')   // only char, case sensitive
+        Insert(index, "")   // no char
+        Remove(from, how_many)   // removes from i onwards , how_many number of chars
+        GetType
+        ToString
+        Clear
+
+
+
+LINQ - 
+    .Select()
+    .Where()
+    .OrderBy  // ascending | OrderByDescending
+    .Count()
+    .Any()   // returns boolean
+    .All()
+    .GroupBy()
+    .Take() 
+
+    using System.Ling
+    using System.Xml.Linq
+
+
+Arrays -
+    continguous memory location
+    accessed by index
+    fast processing
+    can store primitive as well as object datatypes
+
+    int[] arr;    // declaration
+    int[] arr = new int[5];    // {0,0,0,0,0} initially
+    int[] arr = {1,2,3,4,5};
+    int[] arr = new int[] {6,7,8,9,1};
+
+    Types - 
+        Mulit-dimensional -
+            Rectangular arrays
+            initialization of all rows & columns together (can’t initialize row by row later)
+            fixed memory
+            number of elements in each row is same
+            access arr[i, j]
+            its like matrix
+            stored as continguous block of memory
+            eg . 
+                string [,] names = new string[2, 3]{
+                    {1, 2, 3},
+                    {4, 5, 6}
+                };  // 2D
+               
+                int[ , , ] arr;   // 3D
+
+                string [,] names = {
+                    {1, 2, 3},
+                    {4, 5, 6}
+                };  // ??? can we do this 
+                yes, compiler interprets dimensions
+
+            
+        Jagged arrays - 
+            array of arrays
+            have to initalize Each row separately
+            flexible size i.e there can be unequal arrays in each row
+            access arr[i][j]
+            non-continguous storage
+            eg . 
+                int[][] arr1 = new int[2][]{     // works even without writing 2, compiler interprets
+                    new int[] {3, 4},
+                    new int[] {2, 5, 2}
+                };
+
+                or
+                
+                // int[][] arr;     -> error, have to initialize
+                int[][] arr = new int[2][0];
+                arr[0] = new int[]{1, 3, 4}; 
+                arr[1] = new int[]{1, 3}; 
+
+            must always first allocate the outer array, then initialize each inner array separately
+
+            eg { {1, 0, 2}, {1, 3} }
+
+
+
+ASP.NET with Database - 
+    ASP.NET core application
+    Add new folder named "Models"
+    Add new .cs class Student.cs
+    Get set methods for roll_no, course, name
+
+    Create new folder in pages/ named students
+    Tools -> NuGet Package manager -> download SwashBuckle
+    Students folder -> right click -> Add -> Razor Page -> Razor Page with entity framework
+    Tools -> NuGet Console -> 2 cmds -> add-migration "init data" &     update-database
+    Run with http , not https
+
+
+Razor Pages in C# -
+    Introduces a page-focussed framework , 
+    used to create cross-platform data driven server-side webpages with clean seperation of concerns
+    Advantages - 6
+        Supports cross-platform (deployable on windows, mac, unix)
+        lightweight and flexible to build in any application
+        works well with C#
+        organized code behind pages (like asp.net web forms)
+        razor pages are task specific (eg page handling Creation, deletion etc)
+        Header and footer same across many pages, thus consistency
+
+    Steps - 
+        create new project (ASP.NET core web app)
+        Pages Folder -> all razor page coding done here
+            Create new folder in pages/ named students
+            Tools -> NuGet Package manager -> download SwashBuckle
+            Students folder -> right click -> Add -> Razor Page -> Razor Page with entity framework
+        wwwroot -> all webpage elements (css, js)
+        Shared/ - all files in here , will be used throughout the website (_Layout.cshtml, _ValidationScriptPartial)        
+        Any CSHTML code has corresponding C# code for itself
+        Index.cshtml is index page that appears when we run website
+            @page says its a razor page
+            @model Website.Pages.IndexModel is dependency injection
+            logger -> library usefull for tracking the user, like who visited website etc   
+
+
+Rest API architecture - 
+    Representational State Transfer
+    software architectural style that defines set of rules used for creating web services
+    Allows requesting systems, to access and manipulate web resources , using uniform predefined set of rules
+
+    Restful system consists of - 
+        client who requests for the resources
+        server who has the resource
+
+    Architectural Constraints - 6
+        Uniform Interface
+           provides uniform way of acting with a given server (irrespective of device/application type)
+        Stateless
+            the necessary state to handle a request is contained within req itself, server shouldnt store anything related to that session
+            all required information (to fulfill a request) must be included in the req (in headers, query params etc)
+        Cacheable (response can be saved)
+            every resp should include whther resp is cacheable or not, and for how much time it is Cacheable (at client side).
+            usually responses of post request cannot be cached for safety
+        Client-server
+            should have client-server architecture
+            client -> someone requesting resource and not concerned about data-storage or business logic
+            server -> holds resources, not concerned with frontend UI
+        Layered System
+            needs to be of multiple layers, each layers doesnt know anything about any other layer
+            lot of intermediate servers between client and end-server, they help improve availability by load-balancing
+        Code on demand
+            optional feature
+            server can provide executable code to client
+            eg. server-side scripts like JavaScript
+    eg. 
+        get details of rno 100
+        >> http://localhost:7000/api/Students/100 Get
+        
+        update details of rno 100
+        >> http://localhost:7000/api/Students/100 POST (or PUT)
+
+
+Master page - 
+    Its a layout having header , footer etc. Kind of a template
+    Gives consistent UI i.e go to any page, header footer remains same
+    created using JavaScript/CSS
+    Gives centralized way of changing UI
+
+    Components -
+        Master Page - creating the common UI elements
+                    .master extension
+        Content Page - webpage that will use master page
+        ContentPlaceholder - reserved area in master page, where webpage will come
+        ContentControl - controls to be added on control page
+    
+    Steps - 
+        Right Click -> Add -> select MasterPage
+        Add menubar to masterpage (common for whole website)
+        Add few content pages like default.aspx, about.aspx, content.aspx
+        while adding content pages, 'use Master Page' should be selected
+
+    Eg - 
+        <Items>
+            <asp:MenuItem Text="Home" Value="HOME" NavigatorUrl="~/Default.aspx"></asp:MenuItem>
+        </Items>
+        <asp:ContentPlaceholder id="cp1" runat="server"></asp:ContentPlaceholder>
+
+
+Ajax in ASP.NET - 
+    Asynchronous JavaScript and XML
+    development technique used to create interactive & dynamic web applications
+    No cross-browser pain, as AJAX works smoothly across modern browsers
+    with it, webapps can retrieve data from server asynchronously, without reload
+
+    ADV - 
+        reduces traffic travels
+        better interactivity and responsiveness
+        serveral multipurpose features can be handled from single web page
+    Disadv - 
+        Search engines (google) cannot index ajax applications
+        it is built-in JS, if user disables JS in browser, it wont work
+        less security , as scripts are visible to clients
+        cannot directly access server info with ajax
+
+    $.ajax({
+        type: "GET",
+        url: 'Employee/GetEmpList',      //  Calls a C# method returning list of employees
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            // Looping over employee list and display it
+            $.each(response, function (index, emp) {
+                $('#output').append('<p>Id: ' + emp.ID + '</p>' +
+                                    '<p>Id: ' + emp.Name + '</p>');
+            });
+        },
+        error: function (errorThrown) {
+            alert("Error Text: " + errorThrown); // Display error message
+        }
+    });
+
+
+Delegates - 
+    Type safe function pointer
+    used when working with large project and huge number of files
+    similar to a function pointer in C or C++
+    allows to encapsulate a reference to a method inside a delegate object
+    behaves like a class and also as a method
+
+    types -
+        single cast delegate - refers to only a single method
+        multicast delegate - refers to and thus fires off , multiple methods having same signature  
+
+    Adv - 
+        encapsulate method's call from caller
+        improves maintainability of application
+        used to call a method asynchronously
+
+    steps - 
+        string myfunc(string a, string b){}           // both have same signature (return type and paramters)
+        string otherfunc(string p, string q){}         // both might have different purpose
+
+        public delegate string Del(string s1, string s2);    // method behaviour
+        // delegate has to have same signature as that of the methods
+        
+        // instance of this delegate can represent (point to) any of our two methods
+        Del del_obj = new Del(myfunc);     // pointer to our 
+
+        //usage 
+        string result = del_obj("Hello", "world");    // this function mightve been called 100 times in a file
+        // right now, its calling/pointing to myfunc()
+        // if we want to change to otherfunc() , in entire file, we can do so in one line
+
+        // Del del_obj += otherfunc;  // this wouldve worked as multi-cast, where, both functions would be called, in order of their definition above
+
+
+
+session management(url rewriting, session, cookies, hidden form) - 
+    mechanism used by web containers to store session information for a user accross multiple requests
+    Since HTTP is a stateless protocol, every new request from a client is treated as independent.
+    thus, Session management allows the server to recognize the same user across multiple requests.
+
+    4 different techniques -
+        cookies - 
+            text files stored on client browser
+            contains user ID, preferences etc
+            sent with each request
+            but, users can disable cookies
+
+        hidden form fields - 
+            hidden input fields in forms, store session data
+            data sent to server only when form submitted
+            but, only works with form submissions
+
+        URL rewriting - 
+            session info attached to url as paramters -> extracted by server to identify
+            but, data becomes visible in url which is less secure
+            eg 
+                hello?  id=101        &  user=alex
+                url  | param1 = value | param2 = value
+        HTTPSession - 
+            client's first request -> container generates unique session ID and sends back to client with response -> temporary session created
+            with each subsequent request -> client sends session ID -> container identifies where request is coming from
+            container uses this ID to retrieve stored data of that user -> associates session with the request
+
+    Request Object (per request) - always new for each HTTP request
+    Session object (per user) - Stores known, earlier data
+    application object (global) - visible to all users, shared
+
+
+ADO.NET disconnected architecture - 
+    low level data access technology
+    lets app connect to databases, fetch data, update data, etc.
+
+    two ways to work - 
+        Connected Architecture - Stay connected to the database while reading or writing data
+            uses Connection , command etc objects
+            ideal for reading data quickly and sequentially
+            conenction to DB remains open while reading
+            not good for scalability as connection has to stay open
+        Disconnected Architecture - fetch once, store in memory, disconnect from DB. work offline with that data
+            uses Dataset
+            can update DB later when needed
+            works offline
+            but, uses more memory
+
+            Dataset - in-memory database holding multiple tables
+            DataTable - One table inside dataset
+            DataRow - single row of info in a table
+            Data Column - Doesnt contain actual data
+                stores info such as Column data type, default value, length of col
+            Data Relation - 
+                Defines a relationship between two tables (like foreign key).
+                eg - CustID col in Orders table refers to CustomerID col in Customer table
+            Data View - 
+                Provides a window onto a Data table
+                its a filtered or sorted view of a table
+
+
+
+
+System.Object 
+    Equals(), GetHashCode(), ToString(), GetType()
+
+    IEnumerable
+        GetEnumerator(), 
+
+        ICollection
+            .Count, IsSynchronized, SyncRoot, .CopyTo()
+
+            IList
+                read only, fixed size, variable size
+                isFixedSize(), Clear()
+
+Data Structure - 
+    System.Object - 
+        it is base class of every type.
+        All other types directly/indirectly derive from object class
+        top most class
+        Because of its position, .NET developers should have good knowledge of object class and its members
+        every variable (int, array, custom class etc) can call methods from object
+        
+        with new() it always goes in heap , else, in stack
+        String class overrides object class (.Equals of string compares by value)
+
+        Methods - 
+            object.Equals(object A, object B)
+                compares by address
+                eg - int n1 = 2; int n2 = 3
+                    bool result = object.Equals(n1, n2);    // false
+                    // for primitives i.e value types, it compares by value
+                
+                eg - string s1 = "aa"; string s2 = "aa";    // goes to stack
+                    bool result = object.Equals(s1, s2);   // true (both pointing same place or ref)
+
+                    string s1 = "aa"; string s2 = new string("aa")   // goes to heap
+                    bool result = object.Equals(s1, s2);   // true , as even if reference different, .Equals() is now of string class here, thus it compares by value
+
+            GetHashCode() - 
+                Gives a numeric hash value for the object (Used in hash-based collections for quick lookups)
+
+                object A = 4;
+                object B = "test";
+                object C = new Person(1, "anuj");
+                A.GetHashCode(); // 4    (for integers, hashcode is the number itself)
+                B.GetHashCode(); // (some number, depending on string)
+                C.GetHashCode(); // 2418355 (same like in B) (diff for each Person obj)
+
+            .ToString() - 
+                Converts object to readable string
+            .GetType() - 
+                Returns the runtime type
+
+        GetEnumerator() - 
+            returns enumerable object that can be used to iterate through a collection. 
+            Allows using foreach statement, for reading data in collection
+            eg - 
+                Array arr = new int[] {12, 24,36,48};
+                IEnumerator enum = arr.GetEnumerator();
+
+                string msg = "";
+                while(enum.MoveNext()){
+                    int n = (int) enum.Current;
+                    msg += n.ToString() + "\n";
+                }
+
+
+        ICollection (extends IEnumerable)- 
+            provides method for getting size of collection, creating enumerators, managing Synchronized access to all non generic 
+            collections. It is a base interface for classes in the System.Collection namespace
+
+            Properties
+                Count - 
+                    refers to number of elements contained by ICollection
+                    eg - 
+                        ArrayList arr_list = new ArrayList();
+                        arr_list.Add(10);
+                        arr_list.Add(20);
+                        int count = arr_list.Count;   // 2
+                IsSynchronized - 
+                    returns true if access to ICollection is Synchronized
+                    ie.if collection is thread-safe (only one thread can modify it at a time)
+                    eg - 
+                        reading from a file -> 3 people can read at same time
+                        writing to a file -> only one at a time
+                SyncRoot - 
+                    returns an obj, which can be used to synchronize the access to ICollection
+                CopyTo - 
+                    Copies elements of ICollection object to any array starting at a particular index
+                    eg - 
+                        int[] sourceID = new int[] {1,2,3,4,5};
+                        int[] destinationID = new int [sourceID.Length]
+                        sourceID.CopyTo(destinationID, 0)
+
+            System.Collection.IList (extends ICollection)- 
+                IList interface represents collection of objects that can be individually accessed by Index
+                Categories - 
+                    readOnly - this IList cannot be modified
+                    fixed size - doesnt allow addition or removal of elements, but allows modification of existing elements
+                    variable size - allows addition, removal, modification
+                
+                Properties - 
+                    isFixedSize - 
+                        returns true if IList has fixed size
+                    Clear() - 
+                        removes all items from IList
+                    .Count also works
+
+
+MVC architecture - 
+    software architecture used for developing user interfaces
+    seperates application into 3 interconnected components (seperation of concerns) (easier to manage and test) - 
+        Model (.cs) - 
+            brains of application
+            manages data, logic and business rules
+            handles data access and manipulation as well as data validation (business rules)
+            knows nothing about the view or controller (self contained)
+        View (.cshtml) - 
+            UI of application
+            presents data to user
+            displays data received from controller, sends user interactions (click, submit etc) to controller
+            makes data LOOK good, doesnt process data; just displays
+        controllers - 
+            intermediary between model and View
+            handles user input and flow of application
+            receives user requests (HTTP GET), interacts with model to fetch or update data
+            selects appropriate view and passes data to it
+        thus, user -> controller -> model -> view -> user
+
+        Adv - 
+            Provides organized code by seperation of concerns
+            Helps in concurrent development (diff developers can work simultaneosly on the 3 components)
+            business logic in model and controller can be tested, independently of the UI
+            same model can be used by multiple views, reducing code
