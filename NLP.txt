@@ -1,0 +1,288 @@
+---------------------------------------------------------------
+NLP - 
+Intro 
+    is subfield of AI that enables machines to understand and respond to human languages
+    combines CS + AI + linguistics
+    bridge gap between humans and computer communication
+
+    Components / Phases - 
+        Lexical analysis (word level) - 
+            deals with structure of words
+            tasks - Tokenization, stopword removal, stemming, Lemmatization.
+            using NLTK, spaCy
+        Syntactic (grammer) - 
+            grammatical structure used to identify relationships between words
+            Dependency & constituency parsing (identifies grammatical structure verbs subjects, predicates etc)
+            challenge - ambiguity and ungrammatical sentences
+            using Stanford parser, spaCy
+        semantic (meaning) - 
+            find meaning of words and handle ambiguity
+            Word Sense Disambiguation (WSD) - resolves ambiguity based on context
+            NER
+            used in chatbots, sentiment analysis
+        Discourse Analysis - 
+            understanding strucutre of connected sentences
+            Coreference (identifies different words/antecedants pointing to same entity/pronouns) ("mary likes pizza. she hates pasta" -> she points to mary)
+            Anaphora Resolution (pronoun preferences)
+            used in text Summarization
+        pragmatic (context) - 
+            understand context and tone (sarcasm, implied meanings, rhetorical questions) based on context
+            ("can you pass the salt?" -> not a question, its a request)
+            challenge - culture specific nuances
+            used in chatbots
+        Speech and Text generation -
+            generating contextually relevant text
+            TTS (text to speech), NLG(human like text gen from data)
+            used in chatbots
+
+        Example - 
+            Input: “I love New York in the winter.”
+            Lexical: Tokens → [“I”, “love”, “New York”, “in”, “the”, “winter”]
+            POS Tags: Pronoun, Verb, Proper Noun, Preposition, Article, Noun
+            Syntactic: Subject “I”, Predicate “love New York in the winter.”
+            Semantic: “New York” → location, “winter” → season.
+            Pragmatic: Speaker likes New York’s winter.
+
+    Evolution - 
+        Early Beginnings (1950s–60s)
+            Focus: Rule-based / Symbolic NLP
+            Alan Turing (1950): Turing Test – measure of machine intelligence.
+            Machine Translation: IBM’s Georgetown Experiment (1954) – Russian → English language.
+
+        Statistical revolution (70s - 90s)
+            Focus: Probabilistic / Statistical models
+            shift from rules based -> data-driven models (large text corpora)
+            Ngram models predicting next words
+            Hidden marklov models (HMM) for speech recognition and POS taggimg (part of speech)
+        
+        ML rise (90s - 2010s) - 
+            Focus: Supervised & Unsupervised ML
+            Naive Bayes, SVM for text classification.
+            Latent Semantic Analysis (LSA) and Latent Dirichlet Allocation (LDA) for understanding text structure
+            applied to spam filtering, sentiment analysis, recommendations.
+
+        Neural Network Era (2010s) - 
+            Focus: Deep Learning for text
+            RNN, LSTM(Long Short term memory), CNNs(for text), sequence-to-sequence models
+            applied to Chatbots, voice assistants, and text generation.
+
+        Transformer Revolution (2017–Present) - 
+            Focus: Context-aware & Pre-trained models
+            Attention Mechanism (paper “Attention is All You Need”)
+            Transformer architecture, Pre-trained Models (BERT, GPT, T5)
+            applied to advanced chatbots and content creation 
+
+    Techniques in NLP - 
+        Tokenization(dividing text), Stemming(reducing to root form)(running -> run), Lemmatization(stemming but meaningful form)(good -> better)
+        stopword removal (useless words) (the, in etc)
+        POS - assiging grammatical category (noun, verb etc) to each word, (cat -> noun ,sleeps-> verb)
+        NER - classifies to names, locations etc (anuj -> person, mumbai - GPE)
+
+
+    Algorithms and Models
+        Statistical Methods
+            N-grams – analyze N word sequence to predict next
+            HMM - Probabilistic 
+        Machine Learning Methods
+            Naive Bayes, SVM, Decision Trees – used for text classification, spam detection.
+        Deep Learning Methods
+            Word Embeddings, RNN, LSTM, BERT and GPT Transformers
+
+    Applications of NLP
+    Text Processing – spell checkers, auto-correct.
+    Information Retrieval – search engines (Google).
+    Machine Translation – e.g., Google Translate.
+    Chatbots & Voice Assistants – Siri, Alexa
+    Sentiment Analysis – reviews
+    Text Summarization – automatically generate summaries
+
+    Challenges in NLP
+        Ambiguity – multiple meanings.
+            ("I saw the man with the telescope”)
+        Context Understanding – meaning depends on context.
+            (“Bank” → financial / riverbank.)
+        Sarcasm & Humor
+        Low-Resource Languages – limited data for some languages.
+
+
+Levels of Analysis in NLP
+    NLP processes human language at multiple levels to 
+    understand and generate human-like text or speech, text translation, sentiment analysis and information Retrieval.
+
+    Phonetics
+        Study of speech sounds — how they’re produced and recognized.
+        Used in speech processing systems like speech recognition and text-to-speech
+        converts speech to text by analysing sound wave patterns
+        Example: Alexa, Siri.
+
+    Phonology
+        Study of sound functioning, patterns and phonemes(basic sound units) in a language.
+        Ensures correct pronunciation (via speech synthesis) and recognizes homophones (“two” vs “too”) and thus resolves ambiguity.
+        Used in TTS/STT and pronunciation training apps.
+
+    Morphology
+        Study of word structure and morphemes (smallest units of meaning in a language) (roots, prefixes, suffixes).
+        Used in tokenization, stemming, lemmatization.
+        Example: “run”, “running”, “runner”.
+        Applications: spell checkers, language translation systems.
+
+    Syntax
+        Study of grammar and rules that manage arrangement of words in sentences.
+        Used for parsing and identify and correct sentence structures or not.
+        Helps in grammar checking (Grammarly), machine translation, and parsing for information extraction. 
+
+    semantic (meaning) - 
+        find meaning of words and handle ambiguity
+        Word Sense Disambiguation (WSD) - resolves ambiguity based on context
+        NER
+        used in chatbots, sentiment analysis    
+
+    Sentiment Analysis
+        Subfield of semantics – finds emotions (positive/negative/neutral).
+        helps understand subjective aspects of languages
+        Used in social media, reviews, political analysis
+
+    pragmatic (context) - 
+        understand context and tone (sarcasm, implied meanings, rhetorical questions) based on context
+        ("can you pass the salt?" -> not a question, its a request)
+        challenge - culture specific nuances
+        used in chatbots
+
+
+Ambiguities in NLP
+    Significant challenge because human language is very complex and context-dependent.
+    Ambiguity means a word, phrase, or sentence has more than one interpretation, making it difficult for NLP systems to understand language correctly.
+    Types of ambiguities and their resolutions:
+
+    Lexical Ambiguity:
+        when a word has multiple meanings.
+        Example: bank is closed , bank → river bank / financial institution.
+        Solved by: Word Sense Disambiguation (WSD).
+
+    Syntactic Ambiguity:
+        Sentence's grammatical structure allows multiple meanings.
+        Example: The boy saw the man with a telescope.
+        Solved by: Parsing (dependency or constituency) and context.
+
+    Semantic Ambiguity:
+        Sentence meaning itself is unclear.
+        Example: Visiting relatives can be tiresome.
+        Solved by: Semantic Role Labeling SRL and contextual embeddings (BERT) - identify the role of word in sentence by surrounding texts.
+
+    Pragmatic Ambiguity:
+        Meaning depends on situation or intent.
+        Example: Can you pass the salt? → request, not a question.
+        Solved by: Discourse analysis (understanding strucutre of connected sentences) and intent detection.
+
+    Referential Ambiguity:
+        Pronoun or noun refers to multiple entities.
+        Example: John told Bob that he won (he can be any of the two).
+        Solved by: Coreference and anaphora resolution.
+
+    Phonological Ambiguity
+        Occurs in spoken language when words sound similar but have different meanings.
+        Example: I scream vs ice cream.
+
+
+
+
+Information Retrieval - 
+    process of finding relevant info from large data sources (documents, websites, DBs, structured/unstructured)
+    DIAGRAM
+
+    Data Retrieval vs Information Retrieval
+        - finds exact matches with predefined queries
+            finds relevant info matching user's intent
+        - works with structured data
+            handles unstructured as well as structured
+        - precise and formal queries
+            vague, natural language queries
+        - Retrieval of only known items
+            broader, satisfy information need in any way
+        - searching customer by ID
+            finding relevant articles on topic using search engine
+
+    Functions of IR
+        Indexing: Preprocesses documents, builds searchable index mapping.
+        Query Processing: Interprets queries, matches user intent to data (tokenization, stemming).
+        Ranking: Scores and orders results based on relevance (TF-IDF, ML models).
+        Feedback: Improves search via user input (relevance feedback).
+        Storage & Retrieval: Efficiently manages large-scale data for fast access.
+
+    IR Models
+        Boolean: Uses AND, OR, NOT; retrieves only exact match.
+        Vector Space Model (VSM): Documents & queries as vectors; similarity via cosine similarity.
+        Probabilistic: Estimates probability of relevance (e.g., BM25).
+        Language Model: models Documents as word probability distributions; queries as samples, relevance determined by likelihood of query generated.
+        Neural IR Models: Deep learning for semantic matching (e.g., BERT, Word2Vec).
+
+
+    Text Classification
+        Definition: Assigning predefined categories to text;
+        used in NLP for spam detection, sentiment analysis, topic labeling,language identification etc.
+
+        Types:
+            Binary: Two classes (e.g., spam/not spam).
+            Multi-Class: More than two classes; each text only one class.
+            Multi-Label: Text can belong to multiple classes.
+            Hierarchical: Classes arranged in hierarchy; text may be classified at multiple levels.
+
+
+    Text Preprocessing
+        Transform raw text into clean, structured format for modeling
+        Techniques:
+            Lowercasing: convert all text to lowercase
+            Tokenization
+            Stopword Removal
+            Stemming/Lemmatization
+            Vectorization: convert text into numerical form (BoW, TF-IDF)
+
+        Feature Representation
+            Bag-of-Words (BoW): text as vector of word counts/frequencies, simple but ignores order
+            TF-IDF: weights words by importance across documents (freq in doc vs freq in all docs)
+            Word Embeddings: dense vectors capturing semantic meaning (Word2Vec)
+            Contextual Embeddings: words represented in context using models like BERT, GPT
+
+
+
+Classification Algorithms
+    Traditional Machine Learning Models
+        Naive Bayes: probabilistic model based on Bayes’ theorem, good for binary text classification
+        Logistic Regression: linear model for binary or multi-class tasks
+        Support Vector Machines (SVM): separates high-dimensional text data using hyperplanes
+        Decision Trees & Random Forests: non-linear models, suitable for small/medium datasets
+    Deep Learning Models
+        Recurrent Neural Networks (RNNs): capture sequential information, used in sentiment analysis
+        Convolutional Neural Networks (CNNs): capture local patterns in text
+        Transformer-Based Models: state-of-the-art (BERT, GPT, T5), excel in contextual understanding
+
+    Evaluation Metrics
+        Accuracy: proportion of correctly classified texts; good for balanced datasets
+        Precision: correctly predicted positives out of all predicted positives; important when false positives are costly TP/TP+FP
+        Recall: correctly predicted positives out of all actual positives; important when missing true positives is costly TP/TP+FN
+        F1 Score: harmonic mean of precision and recall; balances precision and recall P.R/(P+R)
+        ROC-AUC: evaluates model performance across different thresholds
+        Confusion Matrix: summarizes TP, FP, TN, FN
+
+    Steps in Building a Text Classification System
+        Define the Problem: identify objective and type (binary, multi-class, etc.)
+        Collect and Preprocess Data: gather labeled data and apply preprocessing
+        Feature Extraction: convert text to numerical features using BoW, TF-IDF, or embeddings
+        Select a Model: choose traditional ML or deep learning model based on dataset
+        Train the Model: split data, train using chosen algorithm
+        Evaluate the Model: use metrics like accuracy, F1 score, ROC-AUC
+        Optimize and Deploy: fine-tune hyperparameters, test, and deploy
+
+
+
+Text Clustering Algorithms
+    K-Means Clustering: partitions texts into k clusters based on similarity
+    Hierarchical Clustering: forms a hierarchy of clusters using dendrograms
+    DBSCAN: groups texts based on density (epsm minpts) and detects noise
+    Gaussian Mixture Models (GMM): assumes clusters follow Gaussian distribution
+    
+    Steps in Text Clustering
+        Text Preprocessing: tokenization, stopword removal, stemming/lemmatization
+        Vectorization: convert text to numerical format using TF-IDF, Word2Vec, BERT embeddings
+        Clustering Algorithm: apply chosen algorithm to group texts based on vector similarity
+        Evaluation: use metrics like Silhouette Score or manual inspection
