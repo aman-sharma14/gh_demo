@@ -1,0 +1,251 @@
+Neural Networks
+    type(subset) of ML , inspired by how human brain processes info
+    layers of interconnected nuerons working together to recognize patterns and make predictions, by adjusting weights on connections
+    mimics structure and function of brain
+    eg - simple image recognition (handwritten numbers), language transaltion etc
+        deeper networks for self driving cars, speech recognition, chatbots
+
+    terms - 
+        Neurons - each neuron (node) takes inpputs, applies a weight, adds bias, passes result to activation function to get output
+        Layers : 
+            input - recieves raw data (pixels from img)
+            hidden - transforms input into usefull representations
+            output - final prediction 
+
+        learning - NN learn by adjusting weights and biases in training, along with backprop and gradient descent
+        Weights & biases- weights indicate strenght of the connection between nodes, adjusted during training along with bias to adapt to new data
+            more the weight of an input, more its importance
+        DL - NN with multiple hidden layers are said to be DL models
+
+    Types - 
+        Perceptron - oldest NN by Frank Rosenblatt
+        FeedForward NN or Multilayer Perceptrons - 
+        Convolutional NN (CNN) - similar to FF, but usually used for image recog, patterns, and computer vision
+            uses Linear Algebra (Matrix Multiplication) to identify patterns in an img
+        Recurrent NN (RNN) - use feedback loops
+            more used for time-series data for predictions
+            eg Stock market predictions or sales forecasting
+
+
+Perceptron (Single Neuron) - 
+    simplest kind of neuron, building block
+    by Frank Rosenblatt in 1958
+    takes some inputs, combines them, and then decides whether to "fire" (output something) or not.
+
+    Calculation -
+        The neuron multiplies each input by its weight, adds them all up, and also adds a little constant called bias (b).
+            z = E wi xi + b
+            this gives a raw output before applying activation
+        Pass it to activation function that decides how neuron reacts
+            sigmoid - squashes op between 0 and 1
+                σ(z) = 1 / (1 + e^(-z))
+            ReLU - max(0, z)    
+            tanh - squashes between -1 and 1.
+
+Bias factor - 
+    special parameter allowing model to shift decision boundary
+    without it, decision boundary forced to pass thru origin (0,0), but best splitting line doesnt necessaryily passes thru origin
+    Bias is like the intercept c in the straight-line equation:
+        y=mx+c, where m is slope (controlled by weights)
+    Weights decide the "tilt/angle" of the decision boundary, bias decides "where it cuts across."
+    gives more flexibility to Perceptron
+Activation function - 
+    mathematical function applied to raw output of a neuron
+    decides whether the neuron should “fire a lot,” “fire a little,” or “stay off.”
+    introduces non linearity 
+    gives NN, the power to model the curves, twists and complex patterns
+    without it, the network would be just a linear function
+        it could only draw straight decision lines, despite of n number of layers
+    makes the system realistic.
+
+    types - 
+        Binary step function -
+            depends on a threshold, that decides whether a neuron should fire or not
+            turns the neuron ON (1) if input > threshold, otherwise OFF (0).
+            > but, cannot be used for multiclass classification
+                model cant learn , as there is no slope involved (linear)
+
+        Non Linear function - 
+            let networks learn curves and complex patterns unlike linear functions
+            Multiple layers make sense (each layer adds new non-linear transformations, allowing the network to approximate any function)
+            Backpropagation works (because derivatives aren’t zero everywhere).
+                To adjust weights, it needs the derivative (slope) of the activation function → this tells how much change in weight affects the output.
+                in Linear -> network gets no useful signal about which direction to adjust weights
+                non linear -> have derivatives that depend on the input
+       
+        sigmoid - squashes op between 0 and 1
+            σ(z) = 1 / (1 + e^(-z))
+            Good for: probability predictions.
+            smooth gradient for backpropagation. (S)
+
+        ReLU - max(0, z)
+            efficient: activates only some neurons → faster computation.
+            Helps gradient descent converge faster
+
+
+Entire Network (FF) - 
+    FeedForward - 
+        process of passing input data through network, layer by layer
+        applying linear transformations and activation functions
+        Input(x) goes in. a^[0] = x
+        Each layer l: multiply by weights, add bias, apply activation. (same like above)
+            z ^ [l] = W ^ [l] * a ^ [l - 1] + b
+        Pass result to next layer (Activation).
+            mathematical gate between input and output
+            a[l]=σ(z[l])
+
+    Backpropagation - 
+        weights repatedly adjusted to minimize difference between actual output and desired output
+        aims to minimize cost function by adjusting weights and biases
+            gradients decide level of adjustment for weights and biases , using the chain rule of calculus 
+            adjust weights with Gradient Descent
+            repeat until loss minimalized
+
+    Training - 
+        Training means adjusting weights & biases, so that predictions come closer to true labels
+        loss function - 1/m E L(y_pred ^i , y_true ^ i)
+            where m in number of training examples , L() is loss for single example
+        
+        Initialization
+            Start with small random weights W and biases b.
+            Randomness ensures neurons don’t all learn the same thing.
+        Forward Propagation
+            Pass input through layers:
+            get final output a^[l] after activation function
+        Loss Computation
+            Compare y_pred with y_true
+            Common losses:
+                Regression: Mean Squared Error (y−y_pred​)^2
+                Classification: Cross-Entropy −[ylog(y_pred​)+(1−y)log(1−y_pred​)]
+        Backpropagation
+            compute derivatives of loss for weights and biases using chain rule
+            for each layer : 
+                der = dJ/dz^[l]
+                etc
+        Weight Update (Gradient Descent)
+            optimization algo
+            etc
+        Repeat
+            repeat for each epoch (one pass through whole training data)
+
+
+Gradient Descent - 
+    optimization algo
+    used to adjust weights & biases to minimize loss
+    like, walking downhill (loss surface), until you reach the lowest point (min error point)
+
+    loss function -
+    Gradient(slope) - 
+    Update rule - 
+
+    Types - 
+        Batch GD - 
+            uses entire dataset for each update, stable but slow
+        Stochastic GD - 
+            One sample at a time, faster, more noisy
+        Mini-batch GD - 
+            most common
+            uses small batch (32, 64 samples)
+            balance of efficiency and stability
+
+
+CNN - 
+    special NN designed for image data (also used in text, audio, video)
+    automatically detects spatial patterns (edges, textures) using convolutions
+    outperforms traditional NN on img recognition tasks
+    uses filters (kernels) to extract features like edges , shapes, textures, corners
+
+    Convolutional Layers - 
+        building blocks of CNN
+        perform convolution (mathematical operation)
+        involves special filters called kernels that traverse through input imgs to learn complex patterns
+
+        Kernels - 
+            small matrices of numbers
+            moves accros parts of img performing element wise Multiplication with that part -> extracts features
+            various methods exist to decide the digits inside matrix, depends on effect (detecting edges, blurring etc)
+    
+    Equation - 
+        (I * K)(i, j) = Em En I(i+m, j+n) . K(m,n)
+        I is input img
+        K is kernel
+        produces a feature map
+        each filter detects specific pattern like horizontal edge, curvature etc
+
+        Activation ReLU -> applied after convolution for non-linearity
+    
+    Pooling Layers - 
+        main obj of these layers is Feature extraction
+        in most cases, were not reducing the dimensions of data -> we are creating new channels that werent there before
+        thus, even if feature map dimensions smaller -> we have more 
+
+        how they work - 
+            eg Imagine having a large image -> want to make it smaller -> but keep all the important features like edges and colors.
+            pooling layer work independently on every depth slice of input. 
+            resizes it spatially using max of values (max pooling) from a window, slid over input data (see its diag)
+
+
+    Flattening Layers
+        after feature extraction , and getting feature map
+        have to turn the feature map into a format suitable for feeding into fully connected Layers
+        i.e 1D layer
+        It takes entire feature map and reorganizes it into single long vector
+        doing this, the network can integrate spatially distributed features extracted for tasks such as classification
+        also , fully connected (Dense) layers are designed to operate on 1D data, thus flattening from multidimensional tensors to 1D is required
+        
+        Without dense layers -> wont be able to perform high-level tasks such as classifying images, detecting objects, or making predictions based on visual inputs.
+
+
+
+RNN - 
+    traditional NN assume independence between inputs
+    but, many tasks need sequential data processing (text, time series, video frames)
+    RNNs are designed to handle sequential data
+
+    Layers - 
+        input - sequential data
+        hidden - memory carrying info from past to present
+        output - predicted values at each step
+
+    Equation - 
+        At each step , RNN takes current input xi and previous hidden state h(i - 1)
+        updates hidden state
+            hi = etc
+        Produces output 
+            y_pred = etc
+
+
+
+
+Evaluating a model - 
+    Classification Matrix - 
+        Accuracy -
+            TP+TN/(TP+FP+TN+FN)
+            i.e correct preds / total preds
+        precision -
+            TP/TP+FP
+            among all predicted positives, how many were actually correct, 
+            measures the reliability of the positive predictions.
+        recall -
+            TP/TP+FN
+            among all actual positives, how many did we correctly predict, model's ability to identify all relevant instances
+            sensitivity
+        f1-score -
+            2 * P.R/(P+R)
+            only gets high if both precision and recall are high, gives overall performance
+        Specificity - 
+            TN / TN + FP
+            its like recoil for other class
+
+        ROC Curve -     
+            TPR - recall
+            FPR - 
+                FP / TP + TN
+            AUC - Area under curve
+                closer to 1 -> better
+
+    Regression Matrix - 
+        Mean Squared Erorr - (y−y_pred​)^2
+        Root MSE - underoot(MSE)
+        Mean absolute error - 1/n E |y - y_pred(i)|
+        R-Squared error - 1 - (MSE / (y−y_avg)^2 )
