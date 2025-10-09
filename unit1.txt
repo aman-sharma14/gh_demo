@@ -1,0 +1,439 @@
+Def of AI : 
+    Intelligent machine that behaves like a person, showing intelligent behaviour
+
+    John McCarthy (first to define AI) - 
+        The goal of AI is to develop machines that behave as though they were intelligent.
+    
+    Encyclopedia Britannica - 
+        AI is ability of digital computers or computer controlled robots, to solve problems that are normally associated
+        with higher intellectual processing capabilities of humans.
+    
+    Elaine Rich -
+        AI is the study of how to make computers do things at which, at the moment, people are better.
+
+   
+
+    Turing Test - 
+        Alan turing
+        Pioneer of AI 
+
+        Machine must pass the turing Test
+        designed to provide a satisfacotry operational definition of AI
+        Computer passes the test if a human interrogator, after posing some written questions, cannot tell if they come from a person or a computer
+
+        computer has to have following capabilities - 5
+            NLP to communicate succesfully in english
+            knowledge representation to store what it knows or hears
+            automated reasoning, to use the stored info to answer questions and draw new conclusions
+            ML, to adapt to new circumstances and detect patterns
+            robotics to manipulate objects and move about
+
+
+History - 
+    
+
+
+State of the ART - 7
+    robotic vehicles:
+        Stanley - with sensors and AI
+            won DARPA grand challenge by driving 132 miles through desert terrain autonomously
+    speech recognition:
+        United Airlines - automated booking system
+            conducts entire flight booking conversation via voice interface
+    Auto Planning & Scheduling:
+        remote agent - NASA spacecraft control
+            first AI to plan and manage spacecraft ops.
+    Game Playing:
+        DEEP BLUE - IBM chess computer
+            defeated world champ Garry Kasparov.
+    Spam filtering:
+        Spam classifiers using learning algos
+            over 1 B emails filtered daily.
+    Logistics planning:
+        DART (Dynamic Analysis and Replanning tool)
+    Home and Military Robotics:
+        Roomba -
+            robotic vacuum cleaner
+        PackBot - 
+            used in military for bomb disposal
+
+
+Agents - 
+    denotes a system that processes information and gives an output from an input
+
+    Classification - 9
+        Software agents -
+            they consist of a program that calculates a result from user input
+            eg Chatbots, web crawlers
+        
+        Hardware agent - used in Robotics
+            have additional sensors which can help perceive its environment, and actuators that help it carry out actions and change the environment
+            eg . self driving cars
+        diagram of software and Hardware
+
+        reflex agents - only react to current input
+            robotic vacuum cleaners
+            
+        agents with memory - can also include past in their decisions
+            eg. Chess playing AI
+        goal-based agents - actions depend on the goal
+            eg - email filter confusion matrix 
+                goal is to put all emails in the right category
+                makes as few errors as possible
+                agent 1 puts imp 11 emails to spam,
+                agent 2 puts 38 spam emails to wanted.
+                    agent 1 makes less but more severe mistakes
+
+        cost-based - minimize the cost of erroneous decisions in long term
+
+        utility based agent - 
+            maximize utility derived from correct decisions in long term 
+            eg . stock market recommending AI
+
+        Learning agents - capable of changing themselves, given training examples or positive/negative feedback, 
+            such that their avg utility grows over time
+            eg . Alpha go 
+        
+        distributed agents - 
+            intelligence not localized in one agent, but rather, cooperation of many agents.
+            multiple agents working in coordination
+            eg . distributed weather sensor Networks
+        
+
+knowledge Based systems-  
+    for complex applications, programming the agent can be hard and expensive
+    AI simplifies this by seperating knowledge from system (inference mechanism), that uses knowledge to make decisions or reach conclusions
+    knowledge is stored in a knowledge base (KB), and building KB is called knowledge engineering, which is based on various sources like human experts, knowledge engineers etc.
+
+    diagram
+
+
+Foundations of AI - 
+    philosophical - 
+        can machines think
+        what is intelligence
+        can machines have conciousness
+    mathematical - logic, probability
+    economic - decision theory to make rational choices
+    neuroscience - helped in creating nueral networks
+    
+    Brain Science with Problem solving - 
+    many ideas and principles in Neural Networks come from brain or nueral science.
+
+    Problem oriented approach - 
+        focus on finding best solution to given problem, regardless of how humans would solve it
+        goal is to build smart agents that can handle many different tasks efficiently
+        method is secondary (no fixed method)
+    Cognitive science approach - 
+        studies how humans think and reason.
+        gives valuable insights (like brain Science)
+        in return, AI algos help researchers better understand human reasoning functions
+
+
+
+Problem solving as State Space Search- 
+    AI technique - 
+        AI problems are very broad spectrum. They have nothing in common except being hard
+
+        AI technique is method that exploits knowledge and should be represented in a way that :
+            the knowledge captures generalization
+            understood by the providers
+            easily be modified
+            helps overcome its own sheer bulk
+
+        to build a system to solve a problem - 
+            define the problem precisely
+            analyse problem
+            isolate and represent task knowledge
+            choose best problem solving technique
+
+        Traditional prog vs Prog with AI 
+            - program can answer only the specific questions it was meant to
+                can answer generic questions it is designed to solve
+            - modifications leads to change in structure
+                " " do not change structure
+            - modifications may affect program adversely
+                quick and easy prog modification
+
+    problem solving - 
+        agent is in some situation and wants to be in some desired situation
+        task is to make series of moves, which will take it to desired situation
+        task is to find the decisions
+        diagram
+
+        2 approaches - 
+            decisions:
+                knowledge based:
+                    Memory based - experience based
+                    Rule based - does not directly depend on exp
+                search based : domain independent algorithms
+
+
+    state space search - 
+        eg Rubiks cube solving - sss involves exploring vast number of possible states of cube to find sequence of moves that lead to desired state (all faces with same color)
+            in between this, there are thousands of states
+            move is an action that take you from one state to neighbouring state
+        eg 8 puzzle - state space : 9!
+
+        Simple search algo - 
+            open = {s}
+            pick any node N from open 
+            while GoalTest(N) != TRUE
+            remove N from open
+            open = open U moveGen(N)
+
+        Problem as a state space search - 
+            problem solving can be perceived as a search in state space.
+            state space consists of all states of domain, as well as the operators that change one state into another
+            states -> nodes in a graph | operators -> edges
+            set of all possible states -> problem space (state space)
+
+    State space - all possible states
+    Initial state - a state withing state space, where problem solving can start 
+    goal state - state that can be acceptable as a solution to the problem
+    operators - set of rules that describe the actions
+
+
+Problem Solving answer - 
+    problem solving - 
+    agent is in some situation and wants to be in some desired situation
+    task is to make series of moves, which will take it to desired situation
+    task is to find the decisions
+    diagram
+
+    2 approaches - 
+        decisions:
+            knowledge based:
+                Memory based - experience based
+                Rule based - does not directly depend on exp
+            search based : domain independent algorithms
+
+    Problem solving as a state space search - 
+        State space - all possible states
+        Initial state - a state withing state space, where problem solving can start 
+        goal state - state that can be acceptable as a solution to the problem
+        operators - set of rules that describe the actions
+
+        problem solving can be perceived as a search in state space.
+            state space consists of all states of domain, as well as the operators that change one state into another
+            states -> nodes in a graph | operators -> edges
+            set of all possible states -> problem space (state space)
+        use of different searching algorithms to find the required solution
+    
+
+Production systems - 
+    consists of a collection of productions (rules), a working memory of facts (database) and an algorithm for producing new facts from old.
+    rule fires when conditions match
+        control strategy decides which rules to apply and tracks what has been tried. works like a search, testing diff rules sets, until one leads to goal state
+
+    simple effective structure for understanding AI systems
+
+    to solve problem using production system , we must specify - 
+        global db, rules, control strategy
+
+    production systems vs conventional computations
+        pro - global db can be accessed by all rules, no part is local to any one
+        pro - rules dont call other rules, communication occurs only thru db
+        pro - modular, changes can be made independently
+        pro - change in knowledge base is easy
+
+    control strategy
+        diagram
+
+
+evaluating search strategies - 
+    completeness - guarantee of finding a solution (if it exists)
+    Time complexity - how long it takes to find solution, measured in terms of number of nodes explored
+    Space complexity - how much space used by algo. (size of nodes list during search)
+    optimality - if solution found, is it optimal?
+    
+
+Uninformed vs Informed - 9
+    - blind search
+        heuristic search
+    - uses no info about the likely direction of the goal nodes
+        uses info about the domain, to try to head in the general direction of goal node
+    - search without info
+        search with info
+    - uses only problem definition (start state, actions and goal state), no domain specific knowledge
+        used problem definition + heuristic information
+    - time consuming
+        quick / fast
+    - increased complexity
+        decreased complexity
+    - less efficient, may explore irrelevant path
+        more efficient, explores more relevant paths
+    - BFS, DFS, DLS, UCS, IDDFs
+        best-first, greedy, A, A*, IDA*
+
+    eg - 
+        navigation - trying rnadom streets without knowing distance
+            using gps with maps
+
+
+Uninformed - 
+    class of general purpose search algorithms
+    use brute force method
+    dont have additional information, they only know how to traverse a tree
+    
+    BFS - 
+        most common search algo for traversing
+        searches breadthwise in a tree
+        starts search from root, expands all children at current level before moving to next
+        uses FIFO queue data structure
+
+        working - 
+            start from root
+            put it in queue
+            while queue is not empty -  
+                remove front node (current node)
+                it it is goal, return the path
+                else, add unvisited children to queue
+        adv - 
+            will definately provide a solution, if it exists
+            if more than one solution, BFS will provide the one with least steps
+        disadv - 
+            requires lot of memory, as each level of tree needs to be processed
+            takes lot of time if goal node is far from root
+         
+        time complexity - 
+            is the NUMBER OF NODES traversed until the shallowest goal 
+            d = depth of shallowest node and b = number of children each node has at a step (avg)
+            -> T(b) = O(b^d)    // ??
+        space  - O(b^d)
+
+        completeness - will definately provide a solution, if it exists
+        optimality - optimal if path cost is same at any step 
+
+    DFS - 
+        recursive algo for traversing
+        start from root , and follows each path to its depth node, before moving to next path
+        go to deepest node -> backtrack -> change direction
+        uses Stack data structure (LIFO)
+
+        working - 
+            start from root, go either left right
+            pop top element (last added) and add its children
+            if its goal, return it
+            else, keep searching
+            if depth node found, backtrack (recursion), go to other path
+            
+        adv-  
+            very less memory as only needs to store stack of nodes on path, from root to current node
+            less time to reach goal than BFS
+        disadv - 
+            Incomplete & non optimal, as many states may re occur, and might not find solution
+            if search space is infinite, it may go down and down
+        
+        complete only in finite space, as it will expand every node in that finite space
+        non optimal, as it might generate large number of steps to reach goal
+        time -  
+            O(b^m)
+            where m is maximum depth of tree
+        space - 
+            only needs to store single path, so O(bm)
+
+    DLS - 
+        varient of DFS that limits the depth of the search tree
+        limit helps the search from going too deep and avoiding potential infinite loop
+        used where search space is very vast
+        can be terminated by - 
+            standard failure - when no solution found, even if it exists within limit
+            cutoff failure - depth limit reached, but no solution found, goal might exist below limit
+        
+        adv - DFS + memory efficient
+        disadv - Incompleteness(if goal below depth limit)
+            not optimal if problem has more than 1 solution
+
+        time - O(b^i), where i is the limit
+        space - O(bi)
+        Incomplete
+
+    
+    Iterative Deepening Depth First search IDDFS - 
+        combines space efficiency of DFS with completeness of BFS
+        modified version of DLS
+        repeatedly performs DLS, with increasing depth limits (starting from 0), until the goal is found
+
+        working - 
+            depth limit = 0
+            perform DLS for that limit
+            if goal not found, increment depth and repeat
+
+        adv - space efficiency, completeness
+        disadv - repats multiple times
+        
+        time - O(b^d), where d is the depth of shallowest goal (like bfs)
+        space - O(bd)   (like dfs)
+    
+    Uniform Cost search UCS - 
+        uses lowest cumulative cost to find path
+        expand nodes based on minimum cumulative cost
+        uses Priority queue (order in which elements added doesnt matter here)(priority by lowest cost)
+
+        working - 
+            insert root to queue
+            remove higest Priority element (lowest cost)
+            if removed one is goal, return cost and stop
+            else, add all children of current node to queue with their cumulative cost from root as the priority key and add current node to visited
+
+            // if this uses cost as priority, isnt it an informed search
+            no, as it does not use heuristics(estimated costs), only uses path cost
+        
+        adv - 
+            optimal (least cost path)
+        disadv - 
+            slower than bfs, if all costs equal
+
+
+
+
+Informed - 
+    A* - 
+        used to find optimal path from start state to goal state
+        f(n) = g(n) + h(n)
+        g(n) = actual cost from root to current node
+        h(n) = estimated cost from current node to goal node
+                it is allowed if it never overestimates the true cost h*(n)      // ? meaning
+                h(n) <= h*(n)
+        
+        time - (b^d)
+        space - O(b^d)
+
+        adv - completeness and optimal if h(n) is admissible
+        disadv - high memory (like bfs)
+
+
+    Greedy Best-first - 
+        tries to expand node that is closest to goal, which might lead to a solution quickly.
+        evaluates nodes by heuristic function i.e f(n) = h(n)
+
+        time - O(b^m) m is max depth of tree
+        space - O(b^m) 
+
+        adv - simple
+        disadv - not complete,
+    
+    Iterative Deepening A* algo - IDA*
+        determines shortest route in a weighed graph between root and goal node
+        kind of IDDFS that adopts A* algos idea of using heuristic cost to assess the remaining cost to reach goal
+
+        working - 
+            set root as current and find f(n) i.e f score ---> g(n) + h(n)
+            set its f score as threshold for further exploration
+            expand current node to children and find f score
+            if for any node, fscore > threshold, prune it as it is too expensive, and store it to visited list
+            if goal found, 
+                return path 
+            else, 
+                repeat step 2 - set threshold as minimum pruned value from visited list
+                continue till goal found
+        
+        node > threshold, dont expand, add it to visited
+        node <= threshold, expand 
+
+        time - O(b^d)  like iddfs
+        space - O(bd)    
+
+        adv - space efficient version of A*, complete and optimal
+        disadv - complex to implement
