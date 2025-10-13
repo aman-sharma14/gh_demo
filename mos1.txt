@@ -1,0 +1,146 @@
+1st os - https://gemini.google.com/share/ac61b858bb70
+    OS and architecture
+    CPU architectures 5
+    BIOS vs UEFI
+    booting process
+    kernels and types
+    protection rings
+    Processes , their states and PCB
+    Memory Management (do from 7th chp)
+    Sandboxing (from doc)
+
+2nd Types of os
+    https://gemini.google.com/share/9e8b0cdbfcfa
+
+3rd Linux : kernel and file systems  
+    https://gemini.google.com/share/9e8b0cdbfcfa
+    do the niche wala summarized prompt , for debian and all
+
+Chp 4 - from doc
+    pwd = prints working dir
+    cd - change workiing dir 
+
+    ls: list files in current dir
+        ls -a : list hidden files as well
+        ls -l : list files with permissions
+    touch : create blank file
+    mkdir : make a directory
+    rm : remove file
+    rm -r : remove dir (recursive remove)
+    cat : read files sequentially (concatenation)
+    cp : copy file
+    mv : move files , as well as rename (if on same level or filesystem)
+    top : monitor processes in real time
+    chmod : change access permissions (can do it for user, group etc)
+        chmod -R 755 folder|file
+        7 -> rwx to user
+        5 -> r-x to group
+        5 -> r-x to others
+        7:rwx, 6:rw-, 5:r-x, 4:r--, 3:-wx, 2:-w-, 1:--x, 0:---
+    nano : opens text editor in terminal
+    cmd | cmd: pipe 
+        take output of left side (prev) cmd, to right side cmd (next)
+        eg - ls -l | head -3
+    grep : prints LINE that matches Pattern
+        eg - grep -i "hello" a.txt
+        hello is pattern, -i is for case insensitive
+        eg - grep -c -i "hello" a.txt
+        c counts number of times hello occurs
+
+        can use it with pipe
+    chown - change owner
+        chown John file1
+        chown :group2 file1
+
+
+5th Inodes - https://gemini.google.com/share/ac61b858bb70
+    Inodes, metadata
+        stat file1.txt
+        ls -i, df -i
+        find -inum 230421 -> all filenames pointing to 230421 i.e hardlinks
+    hard vs soft links - 
+        file1 , file2
+        ln file1 hard_file   -> hardlink created (same inode, cant differentiate between og file and hardlink, is a copy, deleting og wont affect links, points to inode, editing one edits the other as well)
+        ln -s file2 soft_file -> softlink (diff inode, acts like shortcut, less file size as it is just a pointer, deleting og makes softlinks useless, points to og filename and not its inode, does not have its own content cause it only points to og filename, actual content of symbolic link will be name of og file)
+        https://www.youtube.com/watch?v=lW_V8oFxQgA
+
+    Process 
+        same as from 1st Chp
+        types 
+            foreground (process_name)
+                interactive
+                start from a terminal
+                requires a user to be active
+                receives direct input from user
+                blocks terminal until running
+                fg %jobid -> convert background to foreground
+            Bakcground (process &)
+                non interactive
+                not conencted to terminal
+                dont expect input
+                often run automatically as system services
+                eg Daemon
+                ctrl z -> convert fg to background
+        Stages, init process pid 1
+        signals (ctrlc : sigint , ctrlz : sigstop)
+        priority (nice value)
+        cmds in gemini chat
+
+6th package mngrs
+    https://gemini.google.com/share/ac61b858bb70
+
+7th memory management - https://gemini.google.com/share/ac61b858bb70
+    diagram
+    obj - 4
+    functions to reach obj - 6
+    Address
+        Logical / virtual
+            by cpu, lets applications think they have their own memory
+            used during process executtion, user can view
+            illusion of having large main mem, uses part of ssd
+            implemented using paging/segmentation
+            moves inactive segments to disk (swapping function)
+            protection as , each prog has own logical mem space
+            but, slower access, thrashing
+        Physical
+            in RAM, actual physical storage space
+            user cant access directly
+        conv done by MMU 
+            adds value from relocation register to logical addr, to get final physical addr
+    Loader - static(whole prog loaded before start) vs dynamic (loaded when needed)
+    Mem mngmt Techniques
+        Contiguous allocation (allocates single continuos block of memory)
+            internal and external fragmentation
+            Allocation Strategies
+                first:fast/internal,best:internal/external, worst:external/poor utilization, next:faster/internal
+        paging
+            Physical frames , Logical pages, same size
+            pages can be placed in any frame, no continuos needed
+            page table(each process) to map this placement
+            sovles external, but page table takes space
+            used modernly
+        Segmentation
+            mem divided into variable size segments (based on logical structure like functions, arrays)
+            segment table
+            solves internal, gives protection (each segment gives diff access), but external and complex allocation algos needed
+            less common
+        segmented paging (segmentation benefits + removes external fragmentation)
+
+9th Scheduling
+    From https://gemini.google.com/share/ac61b858bb70
+    imp notes-  
+        Scheduler -> dispatcher
+        types and circumstances
+        algos for cpu and IO scheduling
+        Round Robin cpu algo imp, see example from docs
+        EEVDF cpu algo karna , imp
+
+        Scenario based question from docs - explaination here https://chatgpt.com/share/68e8e524-44f0-800b-8677-41e24592916a
+
+    
+10th IO
+    IO (types)
+    IO memory management, control methods PIO, DMA etc
+    Device Drivers, how work , types
+    commands for hardware info - 
+        iscpu, free -h, lsblk, lsusb, lshw
