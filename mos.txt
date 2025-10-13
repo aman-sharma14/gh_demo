@@ -1,0 +1,310 @@
+1 Shell Scripting - 
+    Shell - command interpreter in linux , program that executes other programs, with strong programming language
+        acts as standard input/output Device
+        Bourne shell , C shell etc
+
+        >> sh first.sh
+            execute a shell script
+        
+        system vars - vars created by OS itself. Capital
+            HOME, PATH, PWD, BASH
+            
+        name=3="anuj"
+        echo Name: $name
+        add=`expr $a+$b`
+       
+        if [ $a -le $b ]
+        then
+            do something
+        elif []
+        then
+            do something
+        else
+            do something
+        fi
+
+        while []
+        do
+            something
+            let a++
+        done
+
+
+
+2 Analytics - 
+    sed - Stream Editor
+        used to perform basic text transformations on input
+        makes only one pass over the input, thus efficient
+        can filter text in a pipeline
+
+        cat a.txt | sed 's/John/Nick/g' | tee a.txt
+        subsitute john with Nick globally, and write it back to a.txt
+        sed -n 5,7p root.txt , prints lines 5 through 7. 
+
+    wc -
+        wordcount, newline count, byte count
+        wc -w/-c filename
+    
+    awk - advanced text processing and extraction
+        splits each line into fields based on a seperator 
+        >> awk -F ' ' '{if($4>=30) print $4 "," $3}' employees.txt
+            -F used to change the delimiter ' '
+
+    sort a.txt or sort -r a.txt
+
+
+3. Dialogs - 
+    allows to create user-friendly, text-based color dialog boxes
+
+    dialog --title 'Title' --msgbox 'My Message' 7 50   (h, w)
+    
+    dialog --yesno "Do you want to continue?" 7 40
+    if [ $? -eq 0 ]; then ...
+
+    dialog --inputbox "Enter your name:" 8 40 2> name.txt
+    name=$(<name.txt)
+
+
+4. User Management - 
+    involves creating, modifying, and deleting user accounts and groups to control access to files, resources, and commands.
+
+    root account / superuser - most priviledged
+    user id UID 0
+    access to all commands and files
+    installing new software, changing ownership of files
+
+    sudo 
+        allows user to execute commands with priviledges of another user
+        if your user not in etc/sudoers file, access denied
+    su 
+        switch user
+        allows to switch current login to another users, (root by default)
+        su -l : login normally
+        su -l john
+
+    useradd , passwd
+        adding a user
+        adds home directory and adds initial skeleton config files for this user
+    usermod 
+        modify an existing user's properties
+        add user to group
+        usermod -aG sudo john (adds to root group)
+
+    sudoers file - used to allocate system rights to system users
+
+    Groups used to manage users and shared permissions for files. defines a set of priviledges like rwx for all users in group, for a file
+    a user has one primary group (its self) and any number of secondary groups
+    
+    groupadd 
+        create new group
+        groupadd UserGroup
+
+    adding user to group - 
+        usermod -a -G grp usr
+
+
+
+5 . Permission Management - 
+    Controls access to files and directories
+    Chmod (unit 1 chp 1)
+    chmod g+w filename - changing group permissions to write , o for other users
+
+    umask (user file creation mask)- Umask (User Mask) sets the default permission bits that are turned off when new files or directories are created.
+        Each new file or directory starts with maximum default permissions:
+            Files → 666 (read & write for everyone)
+            Directories → 777 (read, write & execute for everyone)
+        The umask value subtracts (masks off) permissions from these defaults.
+            >> umask 022
+             -> For a file: 666 - 022 = 644   
+
+    Linux uses special permission , beyond rwx
+        SUID (set user id) - tells file to be run with permission of the file_owner, not current user 
+            eg /bin/passwd file is run by root permissions, regardless of any user running it.
+            chmod u+s file_name  (+s means add SUID bit to user u)
+
+        SGID - runs with permissions of file's group
+        Sticky bit - if set on dir, allows any user to CREATE and WRITE files, but only file_owner to rename or delete it
+            chmod +t a.txt
+
+    Access Control Lists - 
+        More granular Control
+        Allows to set permissions for specific user or group , in addition to the standard control
+        >> setfacl -m "u:john:rwx" /folder     (-m is to modify)
+        >> getfacl folder
+        >> setfacl -x "john" /folder
+
+
+
+6. Cron Jobs - 
+    cron is a time based job scheduler in Unix like OSs and linux 
+    it is used to schedule the periodical execution of commands on shell scripts
+    tasks scheduled with cron are known as Cron Jobs 
+    Scheduling done by Cron Daemon
+    used lot in servers
+    used for automating
+        Deactivating or deleting user accounts that are past their expiration date. 
+        Sending out daily newsletters. 
+        ending mass emails from a command-line script
+
+    consists of 6 essential parts - 
+        min(0-59), hour(0-23), day_of_month(1-31), month(1-12), day_of_week(0-6, starting sunday), cmd/script
+        * -> all minutes, or hours etc
+        */5 -> every 5 minutes, 10/5 -> every 5 minutes, starting from 10th minute
+        L -> last day 
+        ? -> omit value
+
+    eg  
+    * * * * * /scripts/a.sh  -> every minute
+    0 7,17 * * * /scripts/a.sh -> on 0th minute of 7am and 5pm on all days
+    */5 * * * * /scripts/a.sh -> every 5 minutes
+    @yearly /scripts/a.sh -> yearly
+    @monthly, weekly, daily, hourly, reboot
+
+    >> crontab -e (edit/create), -l (list of cron jobs), -r(remove, deleting job)
+
+
+7. Storage -
+    do Unit 1 chp 7 diagram
+
+    RAID - Redundant array of independent/inexpensive disks
+        involves combining a group of HDDs to prevent failures
+        just for losses due to hardware failures, not for software (accidental deletes) failures
+
+        Striping - data spread accross multiple drives , so they can work in parallel
+            increased read and write performance
+        Mirroring - same data written to two seperate drives, one-to-one redundancy.
+            Used for Business Critical applications
+            only 50% utilization of HDD, costs too much.
+        Parity - cost effective, combines striping and parity . Extra drive added to RAID for storing parity info
+            On failures, data can be reconstructed using parity information, calculated using lossless XOR algo.
+
+        RAID options based on redundancy, utilization of capacity, read write performance, number of drives
+        RAID 0 -
+            Data splitted and written accross all drives in the array (min 2)
+            excellent performance but single drive failure can loose all data
+        RAID 1 -
+            Mirroring, min 2 drives
+            100% data redundancy. on failure of one, can retrieve data from the other
+            Usable capacity is only 50% of total disk space.
+        RAID 5 - 
+            Striping with distributed parity 
+            uses min 3 drives, parity info spread accross all drives
+            can handle failure of one drive at a time (cause, after one failure, it takes hours to rebuild, another failure at that time would be bad)
+        RAID 6 - 
+            striping with dual parity
+            parity data written to two drives, thus needs min 4 drives
+            can handle 2 drives failure at a time (thus, its better than RAID 5 as it survives 1 drive failure)
+        RAID 10 - 
+            comb of RAID 1 and 0, called Stripe of mirrors
+            performs mirroring first and then striping
+            high performance and redundancy
+            ✅ If one disk fails → its mirror still has your data → system keeps working.
+
+            (RAID 01 "Mirrors of stripes" not practical, as one faulty stripe can lead to loss of all data)
+    
+    Software RAID - uses serve's OS and CPU to manage RAID
+        cheaper as no additional hardware needed
+        increases load on server's CPU
+    hardware RAID - dedicated RAID controller card on motherboard
+        more expensive
+        no extra load on server, high performance, battery backup feature
+
+9 - Virtualization
+    Virtual Machines - 
+        running virtual instance of a computer running on top of another physical computer.
+        is Abstracted from actual hardware.
+        for applications running inside, the VM appears to be their own dedicated machine with unique OS, libraries etc
+        
+        Has access to - 
+            CPU and memory power from host machine
+            Virtual disk devices for storage (disk images)
+            virtual network interface
+            shared access to hardware (video cards , USB devices)
+
+    Snapshots: (virtualization component)
+        A snapshot captures the entire state of a VM at a specific moment in time, 
+        including its disk data, memory contents, and settings. 
+        This allows you to revert the VM back to that exact state later.
+
+
+    Virtual Machine Monitor (VMM)
+        Hypervisor
+        software that creates and runs virtual machine environment.
+        acts like Master Control Program, operating at highest priviledge (ring 0)
+        Main function is to manage one or more guest OS running in seperate VMs
+        Acts as interface between guest OS and physical hardware
+            Intercepts Hardware calls 
+                manages accessing peripheral devices and memory , on behalf of guest OS
+            Injecting interrupts
+                in case of hardware events like writing operation completion
+                VMM receives the physical interrupt and then sends corresponding virtual interrupt to guest OS
+
+    Type 1 (Bare-metal)	Runs directly on hardware	eg KVM, VMware, Microsoft Hyper-V
+    Type 2 (Hosted)	Runs on top of an existing OS	eg QEMU (without KVM), VirtualBox
+    
+    KVM - 
+        Kernel Based Virtual Machine
+        open source Virtualization technique, directly built into linux Kernel
+        Turns linux into Type 1 (bare metal) Hypervisor, which allows the host to run multiple VMs, directly on hardware
+        Being part of Kernel, leverages kernel's existing components (memory mgnr, process scheduler)
+        Each VM is implemented as a regular linux process with its own virtual hardware (network interface, CPU etc)
+
+        Provides device abstraction but does not perform processor emulation itself (doesn’t pretend to be a CPU — uses the real physical CPU with virtualization features.)
+        creates special /dev/kvm file that can be usd to interact with kernel's virtualization features
+        eg, a tool like QEMU talks to /dev/kvm to create and control VMs
+    
+    QEMU - 
+        Quick Emulator
+        generic open source machine emulator(running systems with completely diff architecture) 
+            and virtualizer (multiple instances of the same architecture)
+        
+        as Emulator - 
+            run OS designed for an architecture, or a completely different architecture.
+            Done using dynamic translation
+        as virtualizer - 
+            case when quest and host architecture is similar
+            acheives near native performance by executing guest code, directly on CPU (KVM used for this purpose)
+            with KVM, QEMU runs VMs at high speed,
+            else, fall backs to slower, software-only emulation
+
+
+
+7. SSH - 
+    older protocols like TelNet not secure because they are unencrypted
+    Telnet transmits sensitive information like usernames and pswds in plaintext
+    can be easily intercepted and read by anyone monitoring the network
+    Thus SSH is needed for modern systems
+
+    SSH - Secure Shell
+        Cryptographic network protocol 
+        used for secure remote login and other secure network services, over an unsecured network
+        encrypts all traffic that passes over network
+
+        working - 
+            SSH client initiates connected by requesting SSH server
+            server sends its public key to client
+            client and server negotiate parameters to establish secure encrypted channel
+            User is then prompted to log in to server's OS through this secure channel
+        
+        Use- 
+            Provides secure remote access for users
+            performing automated file transfers
+            issuing remote commands
+
+        setup - 
+            sudo apt update && sudo apt install openssh-server
+            sudo systemctl status sshd
+            sudo ufw allow ssh (allow ssh through firewall)
+
+            ssh username@ipaddress
+
+    SCP - Secure Copy
+        command for securely transfering files between Linux systems
+        safer variant of standard cp command, as SCP encrypts entire data transfer over an SSH connection
+
+        Use case - 
+            copy files withing same machine, 
+            local to a remote machine or from remote to local
+            two different remote servers
+
+        scp test.txt aaronjohns@192.1.1.251:/home/aaronjohns/test.txt (from local to remote)
