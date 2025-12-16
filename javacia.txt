@@ -1,0 +1,440 @@
+What is server - 
+    system that provides services to multiple clients over a network
+    reliable, continuously running system designed to handle multiple client requests efficiently and securely.
+    
+    server can be  -
+        hardware : eg IBM AS400
+        software : listening to request
+            connection happens with help of software ports (65,536 total ports, some reserved ports)
+            Tomcat and Glassfish are server softwares
+    often equipped with web server and container
+    request-response model is the communication between client and server 
+
+    properties - 
+        works 24x7
+        stable
+        has multiple hard disks, thus if one fails , one can replace other
+        has dashboard monitoring for knowing status of machine along with other information
+        takes care of multiple users (uses threading at techincal level)
+        most servers use java in background as switching from machine to other becomes fast
+        provides services - performs one or more well defined services (web server, main server, file server)
+        request response model - server initially waits for query (listening), once req comes it generates content and sends back res to client
+        High scalability and performance
+    
+    diagram ??
+
+
+servlet - 
+    server side java program
+    it runs within a servlet container (or web container like Tomcat) which is part of a web server
+    it is a generic server extension/class, that can be loaded dynamically to expand the functionality of server
+    runs inside JVM , thus safe and portable
+    operates only within domain of server
+    unlike CGI (uses multiple processes for each program), servlets are all handled by seperate threads, thus they are efficient and scalable
+
+    Servlet	vs Java Program 6
+        Runs inside a web/servlet container
+            Runs independently
+        Handles client requests (HTTP)
+            Does not handle client requests
+        Uses threads for multiple users
+            Single execution flow
+        Operates only within server domain
+            Runs on local machine
+        More efficient than CGI
+            No built-in web support
+        Must implement Servlet interface
+            typically extends Object and is general purpose
+    
+    Servlets are specialized Java programs designed for web applications, 
+    unlike normal Java programs which run independently and do not handle client-server communication.
+
+    webapp with servlets (diagram)
+
+    adv of servlets (multi-threading diagram)
+        webcontainer creates threads for multiple users, threads have benefit cause they have common memory area, lightweight, low communication cost etc
+        better performance : cause thread is created for each request, not process
+        portablity as it uses java
+        robust : servlets managed by JVM, so no tension for memory leak, garbage collection etc
+        secure as it uses java
+        well defined web architecture framework (authentication, database pooling, session support)
+        clean seperation of logic
+        request forwarding to other servlets, enabling load balancing
+
+    Life Cycle - 
+        diagram
+
+        initialization
+            servlet engine(web container like tomcat) loads servlet class into JVM, servlet class maybe in local or remote system
+            after that, it instantiates instance of servlet and other classes referenced by servlet
+            calls servlet init(ServletConfig conf) method (called only once)
+            all configuration stored and preserved in ServletConfig for future use
+            init method can throw ServletException if servlet cannot initialize the resources
+        Service()
+            service() method is invoked by servlet, for every client request
+            ServletRequest (to hold data sent from client) and ServletResponse(hold data sent back to client) passed as parameters
+            multiple service() can be run at a time, thus have to be written in thread safe manner
+            doGet(), doPost() etc methods are part of it
+        destroy()
+            when admin wants to unload servlet, or when system is to shut, servlet engine calls the destroy method
+            now the servlet is eligible for garbage collection
+            run only once
+            common tasks - 
+                synchronises cleanup tasks closing resources, connection pools
+                informs other applications that server will no longer be in service
+
+ 
+Steps for servlet - 
+    subclass of HttpServlet
+    Override doGet() method
+    HttpServletRequest - getParameter("paramName")
+    HttpServletResponse - 
+        set Content type
+        get PrintWriter
+        send text to client via PrintWriter
+    Dont use instance variables
+
+    each servlet code is managed by ServletConfig, and each Project is managed by ServletContext
+
+Servlet Config vs Servlet Context - 
+    -represents single servlet (servlet specific)
+        represents whole web app, common for all servlets
+    -One per servlet
+        One per application
+    -used to store configuration for particular servlet
+        used to store meta info about web app
+    -local paramter, associated with particular servlet
+        global paramter, associated with whole application
+    -has limited scope
+        has wide scope
+    - accessed by getServletConfig(), parameters defined using init param
+        accessed by getServletContext(), paramters defined using Context param 
+    
+    suppose we have some common details of a company, lets say place, phone number etc
+    this is what we store in a getContext, which is common and available to everyone
+
+
+Directory Structure - 
+A web application deployed on a server (such as Apache Tomcat) follows a strict hierarchical directory structure. 
+This structure is essential for the Servlet Container(Tomcat) to locate resources, security configurations, and executable code.
+    
+    XYZ Bank 
+        -Src (Java source files written by the developer, development)
+            -com 
+                (written by us)
+                myServelet.java
+            -edu
+                mySchool.java
+        
+        -Web Content (Root of the web application, contains resources ready for server, deployment)
+            files placed directly here, are accessible by clients via url
+            -index.html
+            -WEB-INF (anything in here is not available to public, only for business, its Private)
+                -classes 
+                    -com
+                        -myServelet.class
+                        (compiled code comes here automatically)
+                        (server uses this compiled code to execute applications )
+                -web.xml    (Main configuration file, defines mappings)
+                -lib (Contains required JAR files)
+
+    anything in web.xml automatically connects to classes folder 
+ 
+    WEB.XML - (has all configuration, first loaded into memory)
+        <servlet>
+            <servelet-name> myServlet <servlet-name>
+            <servlet-class> com.myServlet </servlet-name>
+        <servlet>
+
+        <servlet-mapping>
+            <servlet-name> myServlet </servlet-name>
+            <url-pattern> /a </url-pattern>
+        </servlet-mapping>
+
+        /a : if written in browser then it maps via servlet name and connects to com.myServelet
+        https://abc.com:7000/a
+
+
+Request Dispatcher methods 
+    request Dispatcher is an object, reponsible for sending info to desired servlet
+    Used to call another servlet from inside a servlet
+    the other servlet is called as if an HTTP request was sent to it by a browser
+    Enables server-side communication between servlets
+
+    Methods : 
+        include()
+            diagram
+            Includes the response of another servlet
+            here servlet is passing result to another servlet, who will pass the combined result to client
+            here, Control returns to the calling servlet
+            Both servlets contribute to the final output
+            
+        forward()
+            diagram
+            here s1 sends data to another servlet s2 that will process data, but s2  will drectly send response to client
+            Control does not return to the calling servlet (s1)
+    
+
+    RequestDispatcher rd = request.getRequestDispatcher("/a")
+        /a refers to Url-pattern of another servlet file
+        means it should contact with /a
+        its targeted at whatever servlet (or JSP) class, that is mapped to the URL
+
+
+    eg : 2 diagram
+
+9 points
+| **Property**                    | **include() Method**                                 | **forward() Method**                        |
+| ------------------------------- | ---------------------------------------------------- | ------------------------------------------- |
+| **What can be done?**           | Includes another file in the current file            | Forwards client request to another resource |
+| **Merge of response**           | Responses of S1 and S2 are merged and sent to client | No response merge; only S2 response is sent |
+| **Retaining execution control** | Control shifts temporarily from S1 to S2             | Control shifts permanently from S1 to S2    |
+| **Control coming back**         | Control returns to S1 after executing S2             | Control never returns to S1                 |
+| **Response placement**          | Response of S2 is placed inside response of S1       | Response of S2 replaces S1 response         |
+| **Client receives**             | Combined response of S1 and S2                       | Only response of S2                         |
+| **Extra activity**              | Further server-side processing is possible (by s1)   | No further processing possible              |
+| **Usage**                       | Used when output of both S1 and S2 is required       | Used when only S2 output is required        |
+| **Speed of delivery**           | Comparatively slower                                 | Faster                                      |
+
+
+Request Handling - 
+    when client interacts with application, handling of it follows specific events decided by Web Server and Web container(Servlet engine)
+    
+    webapp with servlets (diagram)
+
+    flow :
+        client sends htp request for specific servlet to server
+        upon getting request , two objects created
+            ServletRequest (to hold info sent by client) and ServletResponse(hold data to be sent back to client)
+        container allocates new thread to handle this request, ensuring handling of multiple requests
+        container calls service(), ServletRequest and ServletResponse passed as parameters
+        servlet reads data from req, processes business logic (db interaction etc), generate dynamic content and write to res 
+        service() checks HTTP request type and dispatches request to correct handler (doGet()/doPost())
+        res sent back to client as http res 
+
+    web container (servlet engine) -  is used to manage the components like Servlet's lifecycle, create threads etc. It is a part of the web server.
+        tomcat and glassfish
+    web/http server - handles https requests and Responses (entry point for requests)
+        apache, nginx
+    servlet class - java class containing logic to process request
+
+
+Session - 
+    HTTP is stateless protocol, thus every request is new and independent for server
+    server does not remember user from previous request
+    
+    To solve this, Session object (HttpSession interface) is used
+    It is a server side object, used to maintain state of a user accross multiple request
+    essentially, creates conversation between browser and server
+    exists from login till logout, or browser closed, or timeout
+    session attributes available to only single user (like servletConfig)
+
+    flow - 
+        client sends login details (username, password)
+        server validates, and creates session object in memory to hold user data
+        server generates unique session ID, sent back to client , stored in thier browser's cookies
+        client makes new request -> automatically sends session ID with request to the server
+        server compares session ID with its data stored in memory to identify user and retireve their specific data
+        sends that data back to client
+    
+    Code :
+    public class SessionExample extends HttpServlet {
+
+        public void doGet(HttpServletRequest request,
+                        HttpServletResponse response)
+                        throws IOException {
+
+            response.setContentType("text/html");   
+            PrintWriter out = response.getWriter();
+
+            // get session or create one
+            HttpSession session = request.getSession(true);
+
+            // Session details
+            String sessionId = session.getId();
+            long creationTime = session.getCreationTime();
+
+            // Store data in session
+            session.setAttribute("user", "Anuj");
+
+            // Display output
+            out.println("Session ID: " + sessionId);
+            out.println("<br>Session Created At: " + new Date(creationTime));
+        }
+    }
+
+
+    diagram pg 61
+
+
+response.sendRedirect() - 
+    used to redirect client to new resource (servlet, jsp or html file)
+    unlike forward() which works internally on server, sendRedirect() sends command back to browser to make completely new request
+    redirection to external websites is possible, unlike forward()
+
+    eg - response.sendRedirect("http://abc.com:7000/TYIT");
+        response.sendRedirect("http://sbi.com");
+    working - 
+        client sends request to first servlet (s1)
+        inside s1, response.sendRedirect("URL") executed
+        thus, server sends response back to browser with specific status code and header indicating location of new URL
+        browser receives response, reads new url and generates new fresh call to new location
+        new resource processes this req, and sends final response to user
+    
+    as browser makes new fresh call , original res and req objects are destroyed after first part
+    thus, there is data loss 
+
+    diagram (pg 42)
+
+
+Servlet Object framework - 
+    hierarchical inheritance structure of classes and interfaces
+    allows developer to create web components (servlets), that integrate easily with web container
+    
+    diagram ??
+
+    Flow - 
+        Servlet (Interface) & ServletConfig (Interface), serializable are at the top.
+        GenericServlet (Abstract Class) implements all 3 interfaces.
+        HttpServlet (Abstract Class) extends GenericServlet.
+        MyServlet (user defined Class) extends HttpServlet.
+
+    servlet interface - 
+        root interface of servlet framework
+        every servlet must implement this interface directly or indirectly
+        defines life cycle methods
+            init(), service(), destroy(), getServletConfig(), 
+
+    ServletConfig interface - 
+        used by servlet container to pass configuration info to servlet during initialization
+        provides access to initialization parameters defined in web.xml
+        defines getServletContext()
+
+    serializable -  
+        has no method, but very helpful to store data in file
+        eg if power failure in between process , serializable is a interface that is best at storing data till process done 
+        compiler efficiently does this task
+    
+    generic servlet -
+        defines generic, protocol independent servlet.
+        makes writing servlets easier by providing default implementations for the lifecycle methods, except for service()
+        used to create servlet that is not strictly HTTP based
+
+        diagram (pg 27)
+
+    
+    HTTP servlet - 
+        extends generic servlet to provide HTTP-specific functionality
+        designed specifically for WWW (HTTP protocol)
+        implements abstract service() method from generic
+        service() checks HTTP request type and dispatches request to correct handler (doGet()/doPost())
+        methods - 
+            doGet, if servlet supports HTTP GET requests
+            doPost for http post requests
+            doPut, doDelete
+    
+    MyServlet - 
+        class created by programmer
+        contains specific business logic
+
+        diagram (pg 29)        
+
+
+
+HttpServlet vs genericServlet
+    -generic is superclass for http servlet
+        http is subclass that extends generic
+    -http servlet provides methods that support cookies, session etc, 
+        while generic servlet dont 
+    -protocol specific
+        independent
+    -service() is implemented here
+        service() is abstract
+    -generic used for small data transfer, http used for large
+    -generic makes wiriting servlets easier, provides simple versions of lifecycle methods like init and destroy
+
+
+
+
+Filters - 
+    Filter is object performing filtering task either on request to , or on response from a resource
+    used for authentication, data compression, encryption, tokenizing, resource triggers etc 
+
+    used for getting usage time of user on website
+    when user visits page, it hits filter and time is stored, and notes it when user leaves
+
+    diagram (filter working, jeets notes)
+
+
+    A Filter intercepts a request before it reaches the servlet and/or a response before it is sent back to the client.
+    Filters are executed in a chain defined by the deployment descriptor (web.xml).
+    The server (web container):
+        Calls init() once when the filter is loaded
+        Calls doFilter() for every request
+        Calls destroy() when the filter is removed
+
+    Filter Execution Flow (same diagram)
+
+    Filter 1 :
+    public class F1 implements Filter {
+
+        public void doFilter(ServletRequest req, ServletResponse res,
+                            FilterChain chain)
+                            throws IOException, ServletException {
+
+            System.out.println("F1: Request received");
+            chain.doFilter(req, res);
+        }
+    }
+
+    filter 2:
+    public class F2 implements Filter {
+
+        public void doFilter(ServletRequest req, ServletResponse res,
+                            FilterChain chain)
+                            throws IOException, ServletException {
+
+            System.out.println("F2: IP Address = " + req.getRemoteAddr());
+            chain.doFilter(req, res);
+        }
+    }
+
+
+
+    Servlet : 
+    public class S1 extends HttpServlet {
+
+        public void doGet(HttpServletRequest req,
+                        HttpServletResponse res)
+                        throws IOException {
+
+            long start = System.currentTimeMillis();
+
+            res.getWriter().println("Welcome User");
+
+            long end = System.currentTimeMillis();
+            res.getWriter().println("Usage Time: " + (end - start) + " ms");
+        }
+    }
+
+
+    Web.xml (Filters are configured here):
+    <filter>
+        <filter-name>MyFilter</filter-name>
+        <filter-class>web.MyFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>MyFilter</filter-name>
+        <url-pattern>/MyServlet</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>MyServlet</servlet-name>
+        <servlet-class>web.MyServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MyServlet</servlet-name>
+        <url-pattern>/MyServlet</url-pattern>
+    </servlet-mapping>
