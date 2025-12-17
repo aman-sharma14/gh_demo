@@ -1,0 +1,444 @@
+1. What is a Software Process Model, 
+Why Do we need a Process Model, Give some objectives of the same and a Common Software Process Model?
+
+    SD involves planning, analysis, design, coding, testing, deployment, and maintenance
+    SDLC / Software Process models help do that in organized manner 
+    and understand how to execute each phase of software lifecycle efficiently
+    Structured roadmap/blueprint
+
+    defines -
+        approach
+        workflow
+        sequence of tasks
+        deliverables
+
+    without it (need) - 
+        Unorganized working of teams
+        misscommunication between devs, testers and clients
+        unpredictable time and cost
+        QA activities may get skipped unintentionally
+        risk of failure increases
+    it helps standardize development practices, reduces risks, improves quality and ensures final product meets customer expectations
+    
+    Objectives -
+        planning project activities and allocating resources
+        defining roles and responsibilities in a teams
+        Tracking progress and milestones at various development stages
+        Maintaining quality standards through documentation and testing.
+        Handling risks and changes in requirements effectively.
+
+
+    Common Software Process Models - 
+        Waterfall model - Linear and sequential
+            suitable for simple requirement projects
+            used where requirements are strictly documented beforehand
+        V-Model - Validation and testing integrated
+            safety critical systems
+        Incremental - Development in small parts 
+            Medium-sized evolving systems
+        Spiral - Risk analysis and prototyping-based
+            High-risk, complex projects
+        Agile - Iterative and feedback-driven 
+            Dynamic, rapidly changing requirements
+            where customer feedback plays major role
+        DevOps Model - Continuous development and deployment
+            Cloud-based and large-scale software applications for continuos delivery
+
+
+2. Explain the core activities in a software process along with the diagram, 
+list down the characteristics and importance of a software process.
+    Diagram
+
+    Software Process - 
+        set of activities, methods and practices followed to develop, deploy and maintain software product
+        how software is conceived, designed, implemented, tested and evolved over time.
+        transforms user requirements into functional software systems
+
+    Core activities - 
+        Specification -
+            requirement engineering 
+            determine what the software should do
+            requirement gathering, analysis and documentation
+            eg : banking app requirements - fund transfers, account balance check, transaction history
+        
+        Design and implementation -
+            Dev phase
+            transform requirements -> software architecture and code 
+            design : HLD(system architecture) and LLD(module design)
+            implementation : actual coding phase using programming
+        
+        Validation - 
+            testing and verification
+            ensuring that software meets requirements
+            unit, integration, system and acceptance testings
+            eg : testing payment checkout of ecommerce app
+        
+        maintenance - 
+            evolution phase
+            correcting defects, updating features, adapting software to changes
+            corrective, adaptive, perfective or preventive maintenance
+            eg : updating app to support new OS 
+
+    characteristics - 
+        Structured and repeatable
+        time and cost predictable
+        measurable via metrics and milestones
+        controlled, allowing quality and risks monitoring
+        evolvable to handle changes efficiently
+    Importance - 
+        reduces errors and risks via Structured approach
+        facilitates communication among devs, testers and clients
+        improves software quality
+        better project management by clear milestones
+
+
+
+
+3. Explain the key characteristics of a good process model in detail.
+
+    characteristics highlight effectiveness, reliability, and suitablity
+    characteristics - 
+        Simplicity and understandability - 
+            model should be easy to understand and follow by all
+            complex model may create confusion, misscommunication and errors
+            eg : Waterfall models being simple and sequential is easy to follow for beginners
+
+        Flexibility and adaptability - 
+            requirements often change 
+            a good model should accomodate modifications without any disruption
+            eg : Agile and spiral allow iterative development and adaptation
+        
+        Predictability -
+            should provide accurate estimates for cost, time and resource allocation
+            this ensures proper planning and making informed decisions
+
+        Quality Assurance - 
+            should integrate reviews, testing and validation at required stages
+            this redcues defects, maintenance cost and rework
+            eg : V model emphasizes testing at every dev stage
+        
+        Customer Involvment - 
+            involving customers throughtout process ensures that software meets real expectations
+            feedback loops allow corrections in early stages, reducing risk
+            eg : Agile model emphasizes continuos collaboration with stakeholders
+
+        Risk management - 
+            identifying and preventing risks early is crucial
+            should provide risk assessment mechanisms to handle technical , financial or operational uncertainties
+            eg : spiral model integrates risk analysis in each iteration reducing failures
+            
+        Scalability - 
+            model should be suitable for small as well as large projects
+            can handle projects with varying complexity without losing effectiveness
+            eg : agile -> better for small teams, devops ->can scale for enterprise-level applications
+        
+        Measurability - 
+            progress should be monitorable using metrics and milestones
+            should allow managers to track development, resource usage and quality
+            eg : Incremental models where each delivered module can be measured for completeness and correctness
+
+        documentation and standardization - 
+            should have consistent documentation for design, requirements, testing and dev
+            helps in maintenance, knowledge transfer and auditing
+            eg : Waterfall and V-models provide lot of usefull documentation
+        
+        Support for maintenance and evolution - 
+            software evolves due to new features or changing requirement etc
+            should ensure software is maintainable and can be upgraded with minimal issues
+            eg : agile supports Continuous delivery
+
+
+4. What is a Prescriptive Model? Explain the waterfall model 
+in detail along with its advantages and disadvantages.
+
+    Prescriptive or Plan Driven models - 
+        define a fixed sequence of activities and phases to be followed
+        prescribes what to do , when to do , and how to do it
+
+        Main idea is to plan in advance and execute accordingly, 
+        suitable where requirements dont change often and are well understood
+        Eg : Waterfall, V, Incremental models
+
+        they emphasize documentation, control, and adherence to standards which maintains quality and Predictability
+        but less flexible for projects with high uncertainity and dynamic needs
+
+    Waterfall Model - 
+        Traditional software development model.
+        linear and sequential
+        most other types of SDLC models are derivative of this
+        used in large, complex projects in IT
+        Structured, sequential approach to project management and software development
+        used where project requirements are well defined, long timelines with little room for errors
+
+    Phases of Waterfall Model:
+        Requirements Analysis and Specification:
+            Requirement Gathering & Analysis: Collect and analyze customer requirements to eliminate incompleteness and inconsistencies.
+            Requirement Specification: Document the requirements in the Software Requirement Specification (SRS) as a contract between the dev team and the customer.
+        Design:
+            convert requirements acquired in the SRS into format that can be coded. Software Design document (SDD) used here
+            High-Level Design (HLD): Outline the system architecture and key components.
+            Low-Level Design (LLD): Break down components into smaller parts with detailed specifications for coding.
+        Development:
+            Translate design into source code.
+            Perform unit testing on each module to ensure functionality.
+        Testing and Deployment:
+            Testing: Integration and system testing (Alpha by dev team, Beta by friendly customers, and Acceptance testing by customers after delivery).
+            Deployment: Release the software to end-users and provide necessary training and setup.
+        Maintenance:
+            60% of total effort to develop full software is spent here. Types :
+            Corrective Maintenance: Fix errors not identified during development.
+            Perfective Maintenance: Enhance functionality based on user feedback.
+            Adaptive Maintenance: Adjust software for new environments (e.g., platforms or OS changes). 
+
+
+        Advantages of Waterfall Model
+            Simple, easy to understand, and widely used as the basis for other SDLC models.
+            Each phase is clearly defined, processed one at a time, with well-documented steps.
+            Provides clear milestones and structured progression.
+            Encourages disciplined development practices (define-before-design and design-before-code).
+            Works well for small projects with stable, well-understood requirements.
+
+        Disadvantages of Waterfall Model
+            No feedback or error-correction mechanism between phases.
+            Difficult to handle changes after requirements are finalized.
+            Phases cannot overlap, making it unrealistic for many real projects.
+            Rigid and inflexible; unsuitable for evolving or uncertain requirements.
+            Testing occurs late, causing late defect detection and longer development cycles.
+
+
+5. Explain the V-Model in detail along with its advantages and 
+disadvantages. (With diagram)
+
+    SDLC V-Model
+    method that includes testing and validation at each dev phase
+    creates strcuture like letter "v"
+
+    diagram
+
+    Phases - 
+        verification : Goal is to clearly define scope of project, involves static analysis technique
+            it is evaluation of product dev phase to find if requirments met or not
+            Phases:
+            Business Requirement Analysis
+                Understand the customer’s needs and define the project scope.
+                Important to communicate with the customer, as they may not always be clear about their requirements.
+                Acceptance Test Design Planning is done during this phase.
+            System Design
+                Define the overall structure of the system.
+                High-level (system architecture) and detailed design (individual components) are created to guide further development.
+            Architectural Design (HLD)
+                Ultimate choice made from various technical approaches based on technical and financial viability
+                Defines how modules interact with each other and external systems.
+                Basis for creating integration tests.
+            Module Design (LLD)
+                Detailed design of individual system modules.
+                Compatibility with other modules is ensured.
+                Unit tests are created as they help identify and remove majority of mistakes/risks at early stages.
+            Coding Phase
+                Developers write actual code based on the designs in previous phase.
+                most appropriate programming language is selected.
+                Coding standards and reviews are done to ensure code quality and performance.
+        Validation Phases:
+            Unit Testing
+                Test individual moules for bugs or issues, based on Unit Test Plans from the Module Design phase.
+            Integration Testing
+                Tests communication between integrated modules.
+                Performed after unit testing to ensure modules work together.
+            System Testing
+                Validates the entire application, checking both functional and non-functional requirements.
+            User Acceptance Testing (UAT)
+                Performed in an environment similar to the production environment.
+                Verifies if the system meets user expectations and is ready for real world deployment.
+
+    Advantages - 
+        Highly disciplined model where phases completed one at a time
+        used for small projects with clear requirements
+        simple and easy
+        focus on early verification and validation along with testing, to build good quality and reliable product
+        accurate project tracking for management team
+        clear link between requirements and final product, easier to manage software changes
+        improved communication between teams
+
+    Disadvantages - 
+        difficult adaptability being a linear and sequential model
+        time consuming due to documentation and testing
+        high risk, not good for complex, dynamic requirement projects
+        no iterations of phases
+        over reliance on documentation
+
+
+6. What are the key characteristics of an incremental process model, 
+explain the types of incremental models along with its advantages and disadvantages.
+
+    The Incremental Model is a software development approach in which the system
+    is developed and delivered in small parts (increments), 
+    with each increment going through requirement, design, coding, and testing phases 
+    until the complete system is built.
+
+    characteristics - 
+        Partial System Delivery - developed and delivered in small pieces, each piece adds new features
+        Early functionality - basic functionality available early, allowing using & testing quickly
+        Customer Feedback loop - feedback collected after each part delivery, helps improve next version
+        flexible to changes - new features can be added between increments
+        Linear + Iterative combination - waterfall like structured approach with flexibility
+
+    Types - 
+        Staged Delivery model - 
+            The Staged Delivery Model develops software in planned stages, 
+            delivering working and functional versions at regular intervals until the complete system is achieved.
+
+            diagram
+
+        Parallel Dev model - 
+            The Parallel Development Model divides the system into modules 
+            that are developed simultaneously by different teams at same time (parallel) to reduce overall development time.
+
+            diagram
+
+    Advantages - 
+        Faster Delivery & Early Feedback: Working software is delivered early in increments, 
+            improving customer satisfaction and feedback.
+        Flexibility: Changes in requirements can be easily accommodated in later increments.
+            and without a major cost increases, and hence it is comparitively cost efficient
+        Better Risk Management: Risks and errors are identified early through 
+            continuous testing at each increment.
+        Easy Error Detection: Bugs are easier to find and fix since development is done in small parts.
+
+    Disadvantages - 
+        Requires Skilled Team & Planning: Poor planning can cause 
+            confusion between increments.
+        Higher Overall Cost: Repeated testing and integration may increase cost.
+        Design Issues: Incomplete requirements can lead to architectural problems.
+        Integration Challenges: Combining all increments smoothly can be difficult.
+            as there might be inconsistencies
+        Fixing same issue accross multiple units can be time-consuming
+
+
+7. Discuss the spiral model and elaborate on its risk driven nature, 
+list out the advantages and disadvantages of the same.
+
+    Diagram (each loop is called phase, each phase divided into 4 Quadrants)
+
+    The Spiral Model is an iterative SDLC model that combines systematic development with risk analysis.
+    Development progresses in a series of loops (phases), where each loop(iteration) includes requirement analysis, 
+    design, implementation, testing, and risk evaluation, and the number of loops varies based on project risk.
+    
+    This model is often used for large high risk complex SD projects as it is a flexible and adaptable approach
+
+    Phases - 
+        Objective Defined
+            Project requirements(functional and non functional) and objectives are identified, elaborated and analyzed at the start of each phase.
+            Possible alternative solutions are laid out.
+        Risk Analysis
+            Potential risks are identified and evaluated and then solved, for the best solution.
+            Prototypes are built.
+        Development & Testing
+            The planned features are developed and tested for correctness and quality.
+            Next working version of the software is produced.
+        Review & Planning
+            Customers review the developed version of the product.
+            Planning is done for the next iteration of the spiral.
+
+
+    Risk Handling - 
+        risk is advserse situation that affects succesfull completion of software project
+        handling such risks is Spiral model's main feature, done by developing Prototypes
+        it handles risks by building prototype at each phase 
+        unlike Prototyping model, where risks need to be identified before dev of project, which isnt realistic
+        thus, this model is relatively more flexible
+
+    Adv - 
+        Risk Handling: Effectively manages risks with regular risk analysis at every phase
+        Suitable for Large Projects: Best for large, complex projects due to its iterative nature.
+        Flexibility in Requirements: Allows easy incorporation of requirement changes at later phases.
+        Customer Satisfaction: Customers can review and interact with early versions of the product.
+        Improved Communication: Frequent evaluations enhance communication between developers and customers.
+        Improved Quality: Multiple iterations lead to higher software quality.
+    Diadv - 
+        Complex and Expensive: More complex and resource-intensive than other models, unsuitable for small projects.
+        Too much dependability on Risk Analysis
+        Time and Resource consuming
+        time estimation is very difficult due to uncertain number of phases
+
+
+
+8. Explain the RAD Model in detail along with its advantages and disadvantages.
+    Rapid application Development model
+
+    model that focuses on fast, iterative development with quick delivery of 
+    working software and more responsiveness to user feedback and changing requirements.
+
+    is a incremental software process model proposed by IBM in the 1980s that focuses on short development cycles
+    component-based construction approach is adopted
+    main feature is use of powerfull dev tools and techniques, and the time frame for delivery being 60-90 days
+    It is suitable when requirements are well understood, and the system is built in small independent modules that are later integrated
+
+    diagram 
+
+    Phases-  
+        Requirements Planning – Requirements are gathered using techniques like brainstorming 
+            and FAST (Facilitated Application Development Technique).
+        User Design – User feedback is taken and prototypes are built and validated.
+        Construction – The prototype is refined and converted into the final working product using automated tools.
+        Cutover – Integration, testing, and user acceptance testing are performed.
+    thus, building rapid prototype -> deliver to customer and get feedback -> customer validation -> SRS document
+
+    RAD Model is used when requirements are clear, quick development is required, 
+    user involvement is high, user interaction needed, and the project is small to medium in size with low technical complexity.
+
+    Adv - 
+        Reusable components and short iterations reduce development time.
+        Customer feedback is obtained from the initial stages.
+        Fewer developers and shorter cycles help reduce overall cost.
+        Use of powerful development tools improves quality in less time.
+    Disadv - 
+        Powerful tools need highly experienced developers.
+        Continuous user participation is mandatory.
+        Cannot be used for non-modular or very small projects.
+        Lack of reusable components may lead to project failure
+
+
+
+9. What is an evolutionary process model, 
+explain any one type of evolutionary process model in detail along with its advantages and disadvantages.
+
+    Evolutionary Models - 
+        combination of iterative and incemental models
+        divides dev cycle into smaller, incremental waterfall models where users get access to product at end of each cycle
+        user feedback taken for next cycle, and development team changes plan and process accordingly, thus there is evolution with time
+        overcomes high delivery time issue by dividing the project into many small chunks, prioritizing them, 
+            and delivering each part to the customer one by one.
+        thus, customer receives working software early and frequently, instead of waiting until the end of the project.
+        this increases customer confidence
+
+        However, it requires constant communication and experienced teams, increasing management complexity.
+
+    Types - Prototyping and Agile model
+    
+    Agile - 
+        Waterfall model suffers difficulties while handling 
+            customer change requests during development
+            and time to make these changes
+
+        Agile was mainly designed to help project adapt quickly to change requests
+        facilitates fast project completion by focusing on essential activities, avoiding waste, and using iterative, flexible processes.
+
+        Phases - 
+            Requirement gathering - interacting with customer to understand needs and assess technical and economic feasibility
+            design the requirements - create system arch, wireframes etc to visualize and validate the design
+            Construction/iteration - develop features and deliver working product incrementally
+            Testing/QA - Perform unit, integration, and system testing
+            Deployment - Release the working software to end-users
+            Feedback - Collect user feedback after each iteration for improvement
+
+        Adv - 
+            Reduces total project development time through iterative cycles.
+            Emphasizes better Collaboration and communication
+            Frequent updates allow customers to provide feedback and request changes
+            pair programming produces well-written, error-free programs, unlike coding alone
+        disadv - 
+            Lack of Documentation – Can cause confusion
+            not suitable for handling complex dependencies
+            Progress can be affected if customer feedback is unclear
+            Teams need experience to adapt to iterative changes
+            maintenance can be challenging due to minimal documentation.
